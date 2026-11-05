@@ -7,8 +7,8 @@
 const MENU_CONFIG = {
   restaurantName: "EMBER & OAK",
   tagline: "Modern Dining • Wood-Fired Craft",
-  currencySymbol: "$",
-  taxRate: 0.0825, // 8.25%
+  currencySymbol: "₹",
+  taxRate: 0.05, // 5% GST // 8.25%
   serviceFeeRate: 0.05, // 5% artisanal kitchen fee
   defaultTableId: "T01",
   productionBaseUrl: "" // Auto-resolved to active host URL (menu.html)
@@ -20,7 +20,7 @@ const MENU_ITEMS = [
     id: "starter-1",
     name: "Truffle & Fontina Arancini",
     category: "starters",
-    price: 18.00,
+    price: 495.00,
     rating: 4.9,
     reviews: 84,
     description: "Crispy arborio spheres filled with melted Fontina cheese and black winter truffle, served over roasted garlic emulsion.",
@@ -35,15 +35,15 @@ const MENU_ITEMS = [
     prepTime: "12 mins",
     ingredients: ["Carnaroli Rice", "Black Winter Truffle", "Fontina Val d'Aosta", "Garlic Aioli", "Chives"],
     addOns: [
-      { name: "Extra Black Truffle Shavings", price: 6.00 },
-      { name: "Truffle Honey Drizzle", price: 2.50 }
+      { name: "Extra Black Truffle Shavings", price: 150.00 },
+      { name: "Truffle Honey Drizzle", price: 75.00 }
     ]
   },
   {
     id: "starter-2",
     name: "Wood-Fired Heirloom Bruschetta",
     category: "starters",
-    price: 15.00,
+    price: 395.00,
     rating: 4.8,
     reviews: 62,
     description: "Charred sourdough crusts topped with marinated heirloom tomatoes, torn Genovese basil, and 12-year aged balsamic glaze.",
@@ -58,15 +58,15 @@ const MENU_ITEMS = [
     prepTime: "10 mins",
     ingredients: ["Oak-Charred Sourdough", "Heirloom Tomatoes", "Genovese Basil", "12-Yr Balsamic", "Fleur de Sel"],
     addOns: [
-      { name: "Smoked Stracciatella Cheese", price: 4.00 },
-      { name: "Prosciutto di Parma Crudo", price: 5.50 }
+      { name: "Smoked Stracciatella Cheese", price: 110.00 },
+      { name: "Prosciutto di Parma Crudo", price: 150.00 }
     ]
   },
   {
     id: "starter-3",
     name: "Crispy Calamari Fritti",
     category: "starters",
-    price: 19.50,
+    price: 525.00,
     rating: 4.8,
     reviews: 96,
     description: "Tender Monterey squid dusted in semolina and tossed with blistered shishito peppers, charred lemon, and saffron aioli.",
@@ -81,15 +81,15 @@ const MENU_ITEMS = [
     prepTime: "10 mins",
     ingredients: ["Monterey Squid", "Semolina Crust", "Shishito Peppers", "Saffron Garlic Aioli", "Charred Lemon"],
     addOns: [
-      { name: "Spicy Calabrian Chili Oil", price: 1.50 },
-      { name: "Extra Saffron Aioli", price: 2.00 }
+      { name: "Spicy Calabrian Chili Oil", price: 50.00 },
+      { name: "Extra Saffron Aioli", price: 60.00 }
     ]
   },
   {
     id: "starter-4",
     name: "Smoked Burrata & Charred Peaches",
     category: "starters",
-    price: 21.00,
+    price: 575.00,
     rating: 5.0,
     reviews: 110,
     description: "Pugliese burrata cheese lightly cold-smoked, served with grilled yellow peaches, wild baby arugula, and crushed pistachio praline.",
@@ -104,8 +104,8 @@ const MENU_ITEMS = [
     prepTime: "8 mins",
     ingredients: ["Pugliese Burrata", "Grilled Peaches", "Wild Arugula", "Pistachio Praline", "Wildflower Honey"],
     addOns: [
-      { name: "Grilled Herb Focaccia", price: 3.50 },
-      { name: "Crispy Guanciale Bits", price: 4.00 }
+      { name: "Grilled Herb Focaccia", price: 90.00 },
+      { name: "Crispy Guanciale Bits", price: 110.00 }
     ]
   },
 
@@ -114,7 +114,7 @@ const MENU_ITEMS = [
     id: "burger-1",
     name: "The Ember Wagyu Reserve Burger",
     category: "burgers",
-    price: 27.00,
+    price: 795.00,
     rating: 5.0,
     reviews: 215,
     description: "Prime A5 Wagyu blend patty, double melted aged cheddar, smoked marrow aioli, caramelized shallot jam, on toasted brioche.",
@@ -129,16 +129,16 @@ const MENU_ITEMS = [
     prepTime: "15 mins",
     ingredients: ["A5 Wagyu & Brisket Blend", "18-Mo Vermont Cheddar", "Shallot Bacon Jam", "Bone Marrow Aioli", "Artisan Brioche"],
     addOns: [
-      { name: "Thick Cut Applewood Bacon", price: 4.00 },
-      { name: "Fried Farmhouse Egg", price: 2.50 },
-      { name: "Truffle Parmesan Fries", price: 6.00 }
+      { name: "Thick Cut Applewood Bacon", price: 120.00 },
+      { name: "Fried Farmhouse Egg", price: 75.00 },
+      { name: "Truffle Parmesan Fries", price: 150.00 }
     ]
   },
   {
     id: "burger-2",
     name: "Smoked Cheddar & Hickory Bacon Burger",
     category: "burgers",
-    price: 24.00,
+    price: 675.00,
     rating: 4.9,
     reviews: 140,
     description: "Oak-grilled Angus beef, thick applewood bacon, smoked Wisconsin cheddar, bourbon barbecue glaze, and crispy tobacco onions.",
@@ -153,15 +153,15 @@ const MENU_ITEMS = [
     prepTime: "14 mins",
     ingredients: ["Black Angus Beef", "Smoked Cheddar", "Applewood Bacon", "Bourbon BBQ Glaze", "Crispy Onions"],
     addOns: [
-      { name: "Extra Bacon Slices (2)", price: 3.50 },
-      { name: "Pickled Jalapeño Coins", price: 1.50 }
+      { name: "Extra Bacon Slices (2)", price: 95.00 },
+      { name: "Pickled Jalapeño Coins", price: 50.00 }
     ]
   },
   {
     id: "burger-3",
     name: "Crispy Buttermilk Truffle Chicken Burger",
     category: "burgers",
-    price: 22.50,
+    price: 625.00,
     rating: 4.8,
     reviews: 118,
     description: "24-hour buttermilk soaked organic chicken thigh, twice-fried crisp, black truffle ranch, red cabbage slaw, and dill pickles.",
@@ -176,15 +176,15 @@ const MENU_ITEMS = [
     prepTime: "12 mins",
     ingredients: ["Crispy Buttermilk Chicken", "Truffle Herb Ranch", "Red Cabbage Slaw", "Pickled Cucumbers", "Potato Bun"],
     addOns: [
-      { name: "Nashville Hot Dip Glaze", price: 2.00 },
-      { name: "Melted Pepperjack Cheese", price: 2.50 }
+      { name: "Nashville Hot Dip Glaze", price: 60.00 },
+      { name: "Melted Pepperjack Cheese", price: 75.00 }
     ]
   },
   {
     id: "burger-4",
     name: "Forest Mushroom & Swiss Brioche",
     category: "burgers",
-    price: 23.00,
+    price: 645.00,
     rating: 4.7,
     reviews: 73,
     description: "Char-grilled beef patty or portobello cap, sautéed chanterelles and king oysters, melted Gruyère cheese, and black garlic mayo.",
@@ -200,7 +200,7 @@ const MENU_ITEMS = [
     ingredients: ["Angus Beef (or Portobello)", "Sautéed Forest Mushrooms", "Cave-Aged Gruyère", "Black Garlic Mayo", "Brioche Bun"],
     addOns: [
       { name: "Swap for Organic Portobello Cap (Veg)", price: 0.00 },
-      { name: "Double Gruyère Cheese", price: 3.00 }
+      { name: "Double Gruyère Cheese", price: 90.00 }
     ]
   },
 
@@ -209,7 +209,7 @@ const MENU_ITEMS = [
     id: "mains-1",
     name: "Wood-Fired Tomahawk Ribeye (32oz)",
     category: "mains",
-    price: 89.00,
+    price: 2850.00,
     rating: 5.0,
     reviews: 164,
     description: "USDA Prime 45-day dry-aged bone-in ribeye, seared over live white oak coals, roasted bone marrow, and smoked herb chimichurri.",
@@ -224,16 +224,16 @@ const MENU_ITEMS = [
     prepTime: "25 mins",
     ingredients: ["45-Day Dry Aged Ribeye", "Herb Brown Butter", "Roasted Bone Marrow", "Charred Garlic", "Oak Chimichurri"],
     addOns: [
-      { name: "Seared Jumbo Sea Scallops (2)", price: 16.00 },
-      { name: "Black Truffle Butter Disc", price: 5.00 },
-      { name: "Crisp Duck Fat Potatoes", price: 7.00 }
+      { name: "Seared Jumbo Sea Scallops (2)", price: 450.00 },
+      { name: "Black Truffle Butter Disc", price: 150.00 },
+      { name: "Crisp Duck Fat Potatoes", price: 195.00 }
     ]
   },
   {
     id: "mains-2",
     name: "Pan-Seared Atlantic King Salmon",
     category: "mains",
-    price: 36.00,
+    price: 1250.00,
     rating: 4.9,
     reviews: 182,
     description: "Crispy skin Faroe Islands salmon fillet, English pea velouté, charred asparagus, lemon-dill beurre blanc, and salmon roe pearls.",
@@ -248,15 +248,15 @@ const MENU_ITEMS = [
     prepTime: "18 mins",
     ingredients: ["Faroe Island Salmon", "Sweet Pea Puree", "Asparagus Spears", "Dill Beurre Blanc", "Salmon Caviar"],
     addOns: [
-      { name: "Charred Lemon-Garlic Prawns (3)", price: 12.00 },
-      { name: "Wild Herb Polenta", price: 6.00 }
+      { name: "Charred Lemon-Garlic Prawns (3)", price: 350.00 },
+      { name: "Wild Herb Polenta", price: 175.00 }
     ]
   },
   {
     id: "mains-3",
     name: "Oak-Braised Beef Short Ribs",
     category: "mains",
-    price: 42.00,
+    price: 1350.00,
     rating: 4.9,
     reviews: 97,
     description: "12-hour braised prime short rib, creamy white polenta, glazed baby heritage carrots, and rich Barolo wine reduction.",
@@ -271,15 +271,15 @@ const MENU_ITEMS = [
     prepTime: "16 mins",
     ingredients: ["Prime Beef Short Rib", "Stone Ground Polenta", "Heritage Carrots", "Barolo Wine Glaze", "Crisp Sage"],
     addOns: [
-      { name: "Grated Fresh Horseradish", price: 1.50 },
-      { name: "Caramelized Cipollini Onions", price: 3.50 }
+      { name: "Grated Fresh Horseradish", price: 50.00 },
+      { name: "Caramelized Cipollini Onions", price: 110.00 }
     ]
   },
   {
     id: "mains-4",
     name: "Pan-Roasted Duck Breast",
     category: "mains",
-    price: 39.00,
+    price: 1195.00,
     rating: 4.8,
     reviews: 79,
     description: "Hudson Valley duck breast, spiced sour cherry reduction, celery root mousseline, and charred broccolini.",
@@ -294,8 +294,8 @@ const MENU_ITEMS = [
     prepTime: "20 mins",
     ingredients: ["Hudson Valley Duck", "Sour Cherry Gastrique", "Celeriac Mousseline", "Charred Broccolini", "Star Anise"],
     addOns: [
-      { name: "Seared Foie Gras Medallion", price: 15.00 },
-      { name: "Smoked Sea Salt Flakes", price: 1.00 }
+      { name: "Seared Foie Gras Medallion", price: 395.00 },
+      { name: "Smoked Sea Salt Flakes", price: 40.00 }
     ]
   },
 
@@ -304,7 +304,7 @@ const MENU_ITEMS = [
     id: "pizza-1",
     name: "Neapolitan Margherita Di Bufala",
     category: "pizza",
-    price: 21.00,
+    price: 595.00,
     rating: 4.9,
     reviews: 135,
     description: "72-hour slow fermented dough, San Marzano D.O.P. tomato sauce, fresh buffalo mozzarella, torn basil, and cold-pressed olive oil.",
@@ -319,15 +319,15 @@ const MENU_ITEMS = [
     prepTime: "10 mins",
     ingredients: ["72hr Fermented Flour", "San Marzano D.O.P.", "Mozzarella di Bufala", "Fresh Basil", "EVOO"],
     addOns: [
-      { name: "Spicy Calabrian Chili Oil", price: 1.50 },
-      { name: "Anchovy Fillets in Olive Oil", price: 3.50 }
+      { name: "Spicy Calabrian Chili Oil", price: 50.00 },
+      { name: "Anchovy Fillets in Olive Oil", price: 110.00 }
     ]
   },
   {
     id: "pizza-2",
     name: "Tartufo & Wild Forest Mushroom",
     category: "pizza",
-    price: 26.00,
+    price: 745.00,
     rating: 5.0,
     reviews: 172,
     description: "Creamy Fontina & fior di latte base, roasted porcini and chanterelles, fragrant black truffle cream, fresh thyme, and sea salt.",
@@ -342,15 +342,15 @@ const MENU_ITEMS = [
     prepTime: "12 mins",
     ingredients: ["Fontina Cheese", "Porcini Mushrooms", "Black Truffle Puree", "Fior di Latte", "Garden Thyme"],
     addOns: [
-      { name: "Fresh Shaved Truffle", price: 7.00 },
-      { name: "Crispy Prosciutto Bits", price: 4.00 }
+      { name: "Fresh Shaved Truffle", price: 195.00 },
+      { name: "Crispy Prosciutto Bits", price: 110.00 }
     ]
   },
   {
     id: "pizza-3",
     name: "Prosciutto Crudo & Arugula",
     category: "pizza",
-    price: 25.00,
+    price: 725.00,
     rating: 4.8,
     reviews: 88,
     description: "Crushed tomato sauce, fresh mozzarella, finished fresh out of oven with 24-month aged Prosciutto di Parma, arugula, and Parmigiano.",
@@ -365,15 +365,15 @@ const MENU_ITEMS = [
     prepTime: "11 mins",
     ingredients: ["24-Mo Prosciutto di Parma", "San Marzano Sauce", "Baby Rocket Greens", "Parmigiano Reggiano", "Lemon Oil"],
     addOns: [
-      { name: "Burrata Ball in Center", price: 6.00 },
-      { name: "Balsamic Glaze Swirl", price: 1.50 }
+      { name: "Burrata Ball in Center", price: 175.00 },
+      { name: "Balsamic Glaze Swirl", price: 50.00 }
     ]
   },
   {
     id: "pizza-4",
     name: "Spicy Calabrian Nduja & Hot Honey",
     category: "pizza",
-    price: 24.50,
+    price: 695.00,
     rating: 4.9,
     reviews: 124,
     description: "Spicy spreadable pork nduja, roasted sweet red peppers, smoked provolone, fresh mozzarella, and a drizzle of wildflower hot honey.",
@@ -388,8 +388,8 @@ const MENU_ITEMS = [
     prepTime: "11 mins",
     ingredients: ["Calabrian Nduja", "Hot Wildflower Honey", "Smoked Provolone", "Roasted Sweet Peppers", "Oregano"],
     addOns: [
-      { name: "Extra Hot Honey Pot", price: 2.00 },
-      { name: "Pickled Jalapeños", price: 1.50 }
+      { name: "Extra Hot Honey Pot", price: 60.00 },
+      { name: "Pickled Jalapeños", price: 50.00 }
     ]
   },
 
@@ -398,7 +398,7 @@ const MENU_ITEMS = [
     id: "pasta-1",
     name: "Handmade Tagliatelle Bolognese",
     category: "pasta",
-    price: 28.00,
+    price: 675.00,
     rating: 5.0,
     reviews: 194,
     description: "Daily rolled egg tagliatelle, slow-simmered heritage beef, veal & pancetta ragù, whole milk, and 24-month Parmigiano Reggiano.",
@@ -413,15 +413,15 @@ const MENU_ITEMS = [
     prepTime: "14 mins",
     ingredients: ["Fresh Egg Tagliatelle", "Prime Beef & Veal", "Pancetta Arrotolata", "Parmigiano Reggiano", "Nutmeg"],
     addOns: [
-      { name: "Fresh Stracciatella on Top", price: 4.50 },
-      { name: "Garlic Focaccia Slice", price: 2.50 }
+      { name: "Fresh Stracciatella on Top", price: 125.00 },
+      { name: "Garlic Focaccia Slice", price: 75.00 }
     ]
   },
   {
     id: "pasta-2",
     name: "Cacio e Pepe al Tartufo",
     category: "pasta",
-    price: 26.00,
+    price: 645.00,
     rating: 4.9,
     reviews: 147,
     description: "Bronze-die tonnarelli pasta, aged Pecorino Romano D.O.P., toasted black Sarawak peppercorns, and fresh black truffle butter.",
@@ -436,15 +436,15 @@ const MENU_ITEMS = [
     prepTime: "12 mins",
     ingredients: ["Artisan Tonnarelli", "Pecorino Romano D.O.P.", "Sarawak Peppercorn", "Truffle Butter", "Fleur de Sel"],
     addOns: [
-      { name: "Crispy Guanciale Cracklings", price: 4.00 },
-      { name: "Fresh Shaved Black Truffle", price: 7.00 }
+      { name: "Crispy Guanciale Cracklings", price: 110.00 },
+      { name: "Fresh Shaved Black Truffle", price: 195.00 }
     ]
   },
   {
     id: "pasta-3",
     name: "Maine Lobster & Crab Ravioli",
     category: "pasta",
-    price: 34.00,
+    price: 950.00,
     rating: 4.9,
     reviews: 132,
     description: "Handcrafted pillows stuffed with sweet Maine lobster and blue crab, saffron shellfish bisque, and tarragon breadcrumbs.",
@@ -459,15 +459,15 @@ const MENU_ITEMS = [
     prepTime: "16 mins",
     ingredients: ["Maine Lobster", "Blue Crab", "Saffron Bisque", "Tarragon Panko", "Citrus Zest"],
     addOns: [
-      { name: "Butter-Poached Lobster Tail (3oz)", price: 18.00 },
-      { name: "Trout Caviar Garnish", price: 5.00 }
+      { name: "Butter-Poached Lobster Tail (3oz)", price: 475.00 },
+      { name: "Trout Caviar Garnish", price: 150.00 }
     ]
   },
   {
     id: "pasta-4",
     name: "Rigatoni Alla Vodka & Burrata",
     category: "pasta",
-    price: 25.00,
+    price: 625.00,
     rating: 4.8,
     reviews: 110,
     description: "Extruded rigatoni tubes in a velvety San Marzano tomato & cream sauce deglazed with rye vodka, topped with fresh cold burrata.",
@@ -482,8 +482,8 @@ const MENU_ITEMS = [
     prepTime: "13 mins",
     ingredients: ["Rigatoni Pasta", "Vodka Blush Cream", "Crushed Calabrian Pepper", "Pugliese Burrata", "Sweet Basil"],
     addOns: [
-      { name: "Spicy Italian Sausage Crumbles", price: 4.00 },
-      { name: "Charred Garlic Bread", price: 2.50 }
+      { name: "Spicy Italian Sausage Crumbles", price: 110.00 },
+      { name: "Charred Garlic Bread", price: 75.00 }
     ]
   },
 
@@ -492,7 +492,7 @@ const MENU_ITEMS = [
     id: "dessert-1",
     name: "Molten Valrhona Chocolate Fondant",
     category: "desserts",
-    price: 16.00,
+    price: 425.00,
     rating: 5.0,
     reviews: 188,
     description: "Warm 70% dark Guanaja chocolate cake with flowing molten core, roasted Madagascar vanilla bean gelato, and smoked salted caramel.",
@@ -507,15 +507,15 @@ const MENU_ITEMS = [
     prepTime: "14 mins",
     ingredients: ["70% Valrhona Guanaja", "Vanilla Bean Gelato", "Smoked Salted Caramel", "Cocoa Nib Tuile", "Mint"],
     addOns: [
-      { name: "Extra Scoop Bourbon Vanilla Gelato", price: 3.50 },
-      { name: "Double Smoked Caramel Sauce", price: 2.00 }
+      { name: "Extra Scoop Bourbon Vanilla Gelato", price: 95.00 },
+      { name: "Double Smoked Caramel Sauce", price: 60.00 }
     ]
   },
   {
     id: "dessert-2",
     name: "Madagascar Vanilla Bean Panna Cotta",
     category: "desserts",
-    price: 14.00,
+    price: 375.00,
     rating: 4.8,
     reviews: 82,
     description: "Silky set Piedmontese cream infused with whole vanilla bean pod, macerated wild blackberries, and almond biscotti crumble.",
@@ -530,15 +530,15 @@ const MENU_ITEMS = [
     prepTime: "6 mins",
     ingredients: ["Heavy Cream", "Madagascar Vanilla Pods", "Wild Blackberries", "Almond Biscotti Crumble", "Mint Sprig"],
     addOns: [
-      { name: "Aged Port Wine Reduction", price: 3.00 },
-      { name: "Extra Biscotti Pieces", price: 2.00 }
+      { name: "Aged Port Wine Reduction", price: 85.00 },
+      { name: "Extra Biscotti Pieces", price: 60.00 }
     ]
   },
   {
     id: "dessert-3",
     name: "Artisanal Tiramisu Rustico",
     category: "desserts",
-    price: 15.00,
+    price: 395.00,
     rating: 4.9,
     reviews: 143,
     description: "Espresso-soaked Savoiardi biscuits, whipped sweet mascarpone sabayon, dark Marsala wine, and Dutch cocoa dust.",
@@ -553,15 +553,15 @@ const MENU_ITEMS = [
     prepTime: "5 mins",
     ingredients: ["Savoiardi Biscuits", "Double Shot Espresso", "Sweet Mascarpone", "Marsala Superiore", "Valrhona Cocoa"],
     addOns: [
-      { name: "Side Shot Hot Espresso", price: 3.00 },
-      { name: "Dark Chocolate Shavings", price: 1.50 }
+      { name: "Side Shot Hot Espresso", price: 75.00 },
+      { name: "Dark Chocolate Shavings", price: 50.00 }
     ]
   },
   {
     id: "dessert-4",
     name: "Caramelized Honeycrisp Tart Tatin",
     category: "desserts",
-    price: 15.50,
+    price: 415.00,
     rating: 4.9,
     reviews: 67,
     description: "Slow-caramelized Honeycrisp apples, flaky French puff pastry, brown butter cinnamon syrup, and crème fraîche.",
@@ -576,8 +576,8 @@ const MENU_ITEMS = [
     prepTime: "12 mins",
     ingredients: ["Honeycrisp Apples", "All-Butter Puff Pastry", "Brown Butter Caramel", "Normandy Crème Fraîche", "Cinnamon"],
     addOns: [
-      { name: "Cinnamon Gelato Scoop", price: 3.50 },
-      { name: "Candied Pecans", price: 2.00 }
+      { name: "Cinnamon Gelato Scoop", price: 95.00 },
+      { name: "Candied Pecans", price: 60.00 }
     ]
   },
 
@@ -586,7 +586,7 @@ const MENU_ITEMS = [
     id: "bev-1",
     name: "The Ember Smoked Old Fashioned",
     category: "beverages",
-    price: 18.00,
+    price: 650.00,
     rating: 5.0,
     reviews: 210,
     description: "Woodford Reserve Kentucky Bourbon, toasted oak smoke infusion, demerara syrup, Angostura & orange bitters, expressed orange peel.",
@@ -601,15 +601,15 @@ const MENU_ITEMS = [
     prepTime: "4 mins",
     ingredients: ["Bourbon Whiskey", "Toasted Oak Wood Smoke", "Demerara Sugar", "Angostura Bitters", "Luxardo Cherry"],
     addOns: [
-      { name: "Upgrade to Michter's 10-Yr Rye", price: 6.00 },
-      { name: "Smoked Bacon Strip Garnish", price: 2.50 }
+      { name: "Upgrade to Michter's 10-Yr Rye", price: 180.00 },
+      { name: "Smoked Bacon Strip Garnish", price: 75.00 }
     ]
   },
   {
     id: "bev-2",
     name: "Blood Orange & Rosemary Spritz",
     category: "beverages",
-    price: 15.00,
+    price: 495.00,
     rating: 4.8,
     reviews: 89,
     description: "Malfy Blood Orange Gin, Prosecco Superiore D.O.C.G., torched garden rosemary sprig, and Fever-Tree soda water.",
@@ -624,14 +624,14 @@ const MENU_ITEMS = [
     prepTime: "3 mins",
     ingredients: ["Sicilian Blood Orange Gin", "Valdobbiadene Prosecco", "Torched Rosemary", "Club Soda", "Grapefruit Wheel"],
     addOns: [
-      { name: "Add Elderflower Liqueur Float", price: 3.00 }
+      { name: "Add Elderflower Liqueur Float", price: 95.00 }
     ]
   },
   {
     id: "bev-3",
     name: "Hibiscus Elderflower Zero-Proof Elixir",
     category: "beverages",
-    price: 12.00,
+    price: 350.00,
     rating: 4.9,
     reviews: 74,
     description: "Brewed wild hibiscus blossoms, French elderflower cordial, fresh yuzu juice, sparkling mineral water, and edible orchid.",
@@ -646,15 +646,15 @@ const MENU_ITEMS = [
     prepTime: "3 mins",
     ingredients: ["Cold-Brewed Hibiscus", "St-Germain Style Floral Cordial", "Japanese Yuzu", "Sparkling Water", "Botanical Flower"],
     addOns: [
-      { name: "Organic Chia Seed Swirl", price: 1.00 },
-      { name: "Extra Crushed Mint", price: 0.50 }
+      { name: "Organic Chia Seed Swirl", price: 40.00 },
+      { name: "Extra Crushed Mint", price: 25.00 }
     ]
   },
   {
     id: "bev-4",
     name: "Smoked Oak Nitro Cold Brew",
     category: "beverages",
-    price: 9.00,
+    price: 275.00,
     rating: 4.8,
     reviews: 64,
     description: "Single-origin Ethiopian Yirgacheffe coffee steeped for 24 hours, infused with pure nitrogen and a hint of smoked Madagascar vanilla.",
@@ -669,8 +669,8 @@ const MENU_ITEMS = [
     prepTime: "2 mins",
     ingredients: ["Single-Origin Ethiopian Coffee", "Liquid Nitrogen Draught", "Smoked Vanilla Bean", "Demerara Touch"],
     addOns: [
-      { name: "Oat Milk Cloud Float", price: 1.50 },
-      { name: "Caramelized Brown Sugar Syrup", price: 1.00 }
+      { name: "Oat Milk Cloud Float", price: 50.00 },
+      { name: "Caramelized Brown Sugar Syrup", price: 40.00 }
     ]
   }
 ];
@@ -691,7 +691,7 @@ const SIGNATURE_SHOWCASE_ITEMS = [
   {
     dishId: "burger-1",
     name: "The Ember Wagyu Reserve",
-    price: "$27.00",
+    price: "₹795",
     subtitle: "Chef's Hearth Special",
     description: "Custom ground A5 Wagyu and dry-aged brisket seared over white oak coals, double melted 18-month Vermont cheddar, shallot bacon jam, and truffle marrow aioli on artisan brioche.",
     image: "assets/images/dish-wagyu-burger.jpg",
@@ -702,7 +702,7 @@ const SIGNATURE_SHOWCASE_ITEMS = [
   {
     dishId: "mains-2",
     name: "Pan-Seared Atlantic King Salmon",
-    price: "$36.00",
+    price: "₹1,250",
     subtitle: "Ocean Catch of the Day",
     description: "Faroe Islands salmon fillet with diamond-crisp skin, velvety English sweet pea emulsion, charred asparagus shoots, and golden dill beurre blanc with trout caviar pearls.",
     image: "assets/images/dish-pan-salmon.jpg",
@@ -713,7 +713,7 @@ const SIGNATURE_SHOWCASE_ITEMS = [
   {
     dishId: "mains-1",
     name: "Wood-Fired Tomahawk Ribeye",
-    price: "$89.00",
+    price: "₹2,850",
     subtitle: "Grand Sharing Cut (32oz)",
     description: "45-day dry-aged USDA Prime bone-in steak basted in rosemary brown butter over burning oak logs. Served with roasted bone marrow and oak chimichurri.",
     image: "assets/images/dish-tomahawk-steak.jpg",
@@ -724,7 +724,7 @@ const SIGNATURE_SHOWCASE_ITEMS = [
   {
     dishId: "pasta-1",
     name: "Tagliatelle al Ragù Bolognese",
-    price: "$28.00",
+    price: "₹675",
     subtitle: "Handcrafted Daily Pasta",
     description: "Silk egg pasta ribbons rolled this morning, folded with eight-hour slow simmered heritage beef and veal ragù, and mountainous shavings of 24-month Parmigiano Reggiano.",
     image: "assets/images/dish-tagliatelle-bolognese.jpg",
@@ -735,7 +735,7 @@ const SIGNATURE_SHOWCASE_ITEMS = [
   {
     dishId: "dessert-1",
     name: "Valrhona Chocolate Fondant",
-    price: "$16.00",
+    price: "₹425",
     subtitle: "Artisanal Sweet Finale",
     description: "Warm 70% Guanaja chocolate cake with flowing molten core, roasted Madagascar vanilla bean gelato, and smoked sea salt caramel drizzle.",
     image: "assets/images/dish-chocolate-fondant.jpg",
@@ -752,105 +752,91 @@ const DEFAULT_ORDERS = [
     createdAt: "2026-11-04 13:45",
     table: "T02",
     items: [
-      { id: "burger-1", name: "The Ember Wagyu Reserve", qty: 1, price: 27.00 },
-      { id: "starter-1", name: "Truffle & Fontina Arancini", qty: 1, price: 18.00 },
-      { id: "bev-1", name: "Smoked Oak Old Fashioned", qty: 1, price: 18.00 }
+      { id: "burger-1", name: "The Ember Wagyu Reserve", qty: 1, price: 795.00 },
+      { id: "starter-1", name: "Truffle & Fontina Arancini", qty: 1, price: 495.00 },
+      { id: "bev-1", name: "Smoked Oak Old Fashioned", qty: 1, price: 650.00 }
     ],
-    subtotal: 63.00,
-    tax: 5.20,
-    serviceFee: 3.15,
-    total: 71.35,
-    status: "completed",
-    paymentStatus: "paid",
-    paymentMethod: "Credit Card",
-    notes: "No ice in Old Fashioned."
+    subtotal: 1940.00,
+    tax: 97.00,
+    serviceFee: 97.00,
+    total: 2134.00,
+    status: "preparing",
+    customerNote: "Medium-rare on the Wagyu, extra napkins please."
   },
   {
-    id: "ORD-1082",
-    createdAt: "2026-11-04 14:15",
-    table: "T04",
-    items: [
-      { id: "mains-1", name: "Wood-Fired Tomahawk Ribeye", qty: 1, price: 89.00 },
-      { id: "starter-4", name: "Charred Burrata Caprese", qty: 1, price: 17.50 },
-      { id: "bev-3", name: "Barolo DOCG Vintage 2018", qty: 1, price: 24.00 }
-    ],
-    subtotal: 130.50,
-    tax: 10.77,
-    serviceFee: 6.53,
-    total: 147.80,
-    status: "completed",
-    paymentStatus: "paid",
-    paymentMethod: "Credit Card",
-    notes: "Medium rare on the tomahawk."
-  },
-  {
-    id: "ORD-1083",
-    createdAt: "2026-11-04 15:30",
-    table: "T01",
-    items: [
-      { id: "pasta-1", name: "Tagliatelle al Ragù Bolognese", qty: 1, price: 28.00 },
-      { id: "dessert-1", name: "Valrhona Chocolate Fondant", qty: 1, price: 16.00 }
-    ],
-    subtotal: 44.00,
-    tax: 3.63,
-    serviceFee: 2.20,
-    total: 49.83,
-    status: "ready",
-    paymentStatus: "paid",
-    paymentMethod: "Apple Pay",
-    notes: "Extra parmigiano on side."
-  },
-  {
-    id: "ORD-1084",
-    createdAt: "2026-11-04 16:05",
+    id: "ORD-1080",
+    createdAt: "2026-11-04 13:20",
     table: "T05",
     items: [
-      { id: "mains-2", name: "Pan-Seared Atlantic King Salmon", qty: 1, price: 36.00 },
-      { id: "starter-2", name: "Wood-Fired Heirloom Bruschetta", qty: 1, price: 15.00 },
-      { id: "bev-2", name: "Rosemary Smoke Sour", qty: 2, price: 16.00 }
+      { id: "mains-1", name: "Wood-Fired Tomahawk Ribeye", qty: 1, price: 2850.00 },
+      { id: "pizza-2", name: "Tartufo & Wild Forest Mushroom", qty: 1, price: 745.00 }
     ],
-    subtotal: 83.00,
-    tax: 6.85,
-    serviceFee: 4.15,
-    total: 94.00,
-    status: "preparing",
-    paymentStatus: "paid",
-    paymentMethod: "Credit Card",
-    notes: "Allergy notice: no nuts."
-  },
-  {
-    id: "ORD-1085",
-    createdAt: "2026-11-04 16:22",
-    table: "T03",
-    items: [
-      { id: "pizza-1", name: "Artisanal Margherita D.O.P.", qty: 1, price: 22.00 },
-      { id: "bev-4", name: "Acqua Panna Still Water", qty: 2, price: 6.00 }
-    ],
-    subtotal: 34.00,
-    tax: 2.81,
-    serviceFee: 1.70,
-    total: 38.51,
+    subtotal: 3595.00,
+    tax: 179.75,
+    serviceFee: 179.75,
+    total: 3954.50,
     status: "accepted",
-    paymentStatus: "unpaid",
-    paymentMethod: "Cash (Pay at Counter)",
-    notes: "Crispy crust requested."
+    customerNote: "Celebrating wedding anniversary."
   },
   {
-    id: "ORD-1086",
-    createdAt: "2026-11-04 16:40",
-    table: "T06",
+    id: "ORD-1079",
+    createdAt: "2026-11-04 12:55",
+    table: "Bar-01",
     items: [
-      { id: "burger-1", name: "The Ember Wagyu Reserve", qty: 2, price: 27.00 },
-      { id: "starter-3", name: "Crispy Calamari Fritti", qty: 1, price: 19.50 }
+      { id: "starter-3", name: "Crispy Calamari Fritti", qty: 1, price: 525.00 },
+      { id: "bev-1", name: "Smoked Oak Old Fashioned", qty: 2, price: 650.00 }
     ],
-    subtotal: 73.50,
-    tax: 6.06,
-    serviceFee: 3.68,
-    total: 83.24,
-    status: "new",
-    paymentStatus: "paid",
-    paymentMethod: "Card (Demo)",
-    notes: "Dine-in priority."
+    subtotal: 1825.00,
+    tax: 91.25,
+    serviceFee: 91.25,
+    total: 2007.50,
+    status: "ready",
+    customerNote: ""
+  },
+  {
+    id: "ORD-1078",
+    createdAt: "2026-11-04 12:40",
+    table: "T08",
+    items: [
+      { id: "mains-2", name: "Pan-Seared Atlantic King Salmon", qty: 2, price: 1250.00 },
+      { id: "dessert-1", name: "Valrhona Chocolate Fondant", qty: 2, price: 425.00 }
+    ],
+    subtotal: 3350.00,
+    tax: 167.50,
+    serviceFee: 167.50,
+    total: 3685.00,
+    status: "completed",
+    customerNote: "Gluten-aware prep requested."
+  },
+  {
+    id: "ORD-1077",
+    createdAt: "2026-11-04 12:15",
+    table: "T04",
+    items: [
+      { id: "pasta-1", name: "Tagliatelle al Ragù Bolognese", qty: 2, price: 675.00 },
+      { id: "starter-2", name: "Wood-Fired Heirloom Bruschetta", qty: 1, price: 395.00 }
+    ],
+    subtotal: 1745.00,
+    tax: 87.25,
+    serviceFee: 87.25,
+    total: 1919.50,
+    status: "completed",
+    customerNote: ""
+  },
+  {
+    id: "ORD-1076",
+    createdAt: "2026-11-04 11:50",
+    table: "T01",
+    items: [
+      { id: "pizza-1", name: "Margherita Di Bufala", qty: 1, price: 595.00 },
+      { id: "bev-3", name: "Hibiscus Zero-Proof Spritz", qty: 1, price: 350.00 }
+    ],
+    subtotal: 945.00,
+    tax: 47.25,
+    serviceFee: 47.25,
+    total: 1039.50,
+    status: "completed",
+    customerNote: "Outdoor terrace seating."
   }
 ];
 
@@ -977,7 +963,18 @@ const EmberStore = {
   getMenuItems() {
     try {
       const saved = localStorage.getItem('eo_menu_items');
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          // If cached items have old USD prices (< 100), auto-migrate to new INR prices
+          const sample = parsed.find(p => p.id === 'burger-1');
+          if (sample && sample.price < 100) {
+            this.saveMenuItems(MENU_ITEMS);
+            return MENU_ITEMS;
+          }
+          return parsed;
+        }
+      }
     } catch(e) {}
     return MENU_ITEMS;
   },
@@ -1005,7 +1002,16 @@ const EmberStore = {
   getOrders() {
     try {
       const saved = localStorage.getItem('eo_orders');
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          if (parsed[0].total < 500) {
+            this.saveOrders(DEFAULT_ORDERS);
+            return DEFAULT_ORDERS;
+          }
+          return parsed;
+        }
+      }
     } catch(e) {}
     return DEFAULT_ORDERS;
   },
@@ -1071,6 +1077,11 @@ const EmberStore = {
       const saved = localStorage.getItem('eo_settings');
       if (saved) {
         const parsed = JSON.parse(saved);
+        if (parsed && (parsed.currencySymbol === '$' || !parsed.currencySymbol)) {
+          parsed.currencySymbol = '₹';
+          parsed.taxRate = 0.05;
+          try { localStorage.setItem('eo_settings', JSON.stringify(parsed)); } catch(e) {}
+        }
         if (parsed && parsed.productionBaseUrl && parsed.productionBaseUrl.includes('emberandoak.restaurant')) {
           delete parsed.productionBaseUrl;
         }

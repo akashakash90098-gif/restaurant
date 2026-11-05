@@ -25,6 +25,13 @@ const MenuApp = (function() {
   }
 
   // ==================== CATEGORY PILLS ====================
+  function getCurrencySymbol() {
+    if (typeof EmberStore !== 'undefined' && EmberStore.getSettings) {
+      return EmberStore.getSettings().currencySymbol || '₹';
+    }
+    return (typeof MENU_CONFIG !== 'undefined' && MENU_CONFIG.currencySymbol) ? MENU_CONFIG.currencySymbol : '₹';
+  }
+
   function renderCategoryPills() {
     const container = document.getElementById('menu-category-pills');
     if (!container) return;
@@ -157,7 +164,7 @@ const MenuApp = (function() {
             <p class="dish-desc">${dish.description}</p>
 
             <div class="dish-card-footer">
-              <div class="dish-price">$${dish.price.toFixed(2)}</div>
+              <div class="dish-price">${getCurrencySymbol()}${dish.price.toLocaleString('en-IN')}</div>
               <button class="add-to-cart-quick-btn" onclick="MenuApp.handleQuickAdd('${dish.id}', event)">
                 <span class="btn-plus-icon">+</span> Add
               </button>
@@ -239,7 +246,7 @@ const MenuApp = (function() {
             <input type="checkbox" class="addon-checkbox" data-index="${idx}" onchange="MenuApp.updateModalAddOn(this, ${idx})">
             <span class="addon-custom-box"></span>
             <span class="addon-name">${add.name}</span>
-            <span class="addon-price">+$${add.price.toFixed(2)}</span>
+            <span class="addon-price">+${getCurrencySymbol()}${add.price.toLocaleString('en-IN')}</span>
           </label>
         `).join('');
       } else {
@@ -282,9 +289,9 @@ const MenuApp = (function() {
     const priceEl = document.getElementById('modal-dish-price');
     const ctaBtn = document.getElementById('modal-add-to-cart-btn');
 
-    if (priceEl) priceEl.textContent = `$${unitPrice.toFixed(2)}`;
+    if (priceEl) priceEl.textContent = `${getCurrencySymbol()}${unitPrice.toLocaleString('en-IN')}`;
     if (ctaBtn) {
-      ctaBtn.innerHTML = `<span>Add to Order</span> <strong>$${totalPrice.toFixed(2)}</strong>`;
+      ctaBtn.innerHTML = `<span>Add to Order</span> <strong>${getCurrencySymbol()}${totalPrice.toLocaleString('en-IN')}</strong>`;
     }
   }
 

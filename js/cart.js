@@ -123,11 +123,17 @@ const Cart = (function() {
   }
 
   function getTax() {
-    return getSubtotal() * (MENU_CONFIG.taxRate || 0.0825);
+    const rate = (typeof EmberStore !== 'undefined' && EmberStore.getSettings)
+      ? (EmberStore.getSettings().taxRate !== undefined ? EmberStore.getSettings().taxRate : 0.05)
+      : (typeof MENU_CONFIG !== 'undefined' ? (MENU_CONFIG.taxRate || 0.05) : 0.05);
+    return getSubtotal() * rate;
   }
 
   function getServiceFee() {
-    return getSubtotal() > 0 ? getSubtotal() * (MENU_CONFIG.serviceFeeRate || 0.05) : 0;
+    const rate = (typeof EmberStore !== 'undefined' && EmberStore.getSettings)
+      ? (EmberStore.getSettings().serviceFeeRate !== undefined ? EmberStore.getSettings().serviceFeeRate : 0.05)
+      : (typeof MENU_CONFIG !== 'undefined' ? (MENU_CONFIG.serviceFeeRate || 0.05) : 0.05);
+    return getSubtotal() > 0 ? getSubtotal() * rate : 0;
   }
 
   function getTotal() {
@@ -139,7 +145,11 @@ const Cart = (function() {
   }
 
   function formatCurrency(amount) {
-    return '$' + (amount || 0).toFixed(2);
+    const symbol = (typeof EmberStore !== 'undefined' && EmberStore.getSettings)
+      ? (EmberStore.getSettings().currencySymbol || '₹')
+      : '₹';
+    const num = parseFloat(amount) || 0;
+    return `${symbol}${num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   }
 
   function updateUI() {
@@ -313,7 +323,7 @@ const Cart = (function() {
         </div>
         <div class="demo-modal-totals">
           <div class="demo-modal-row"><span>Subtotal:</span><span>${formatCurrency(getSubtotal())}</span></div>
-          <div class="demo-modal-row"><span>Tax (8.25%):</span><span>${formatCurrency(getTax())}</span></div>
+          <div class="demo-modal-row"><span>GST (5%):</span><span>${formatCurrency(getTax())}</span></div>
           <div class="demo-modal-row"><span>Kitchen Craft (5%):</span><span>${formatCurrency(getServiceFee())}</span></div>
           <div class="demo-modal-row total"><span>Total:</span><span>${formatCurrency(total)}</span></div>
         </div>

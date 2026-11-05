@@ -226,8 +226,11 @@ const AdminUI = (function() {
 
   // Format currency
   function formatCurrency(amount) {
+    const symbol = (typeof EmberStore !== 'undefined' && EmberStore.getSettings)
+      ? (EmberStore.getSettings().currencySymbol || '₹')
+      : '₹';
     const num = parseFloat(amount) || 0;
-    return `$${num.toFixed(2)}`;
+    return `${symbol}${num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   }
 
   // Resolve asset paths correctly when viewing from inside /admin/
