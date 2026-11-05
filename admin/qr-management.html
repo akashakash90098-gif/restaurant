@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Digital Menu Management • EMBER & OAK Admin</title>  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/admin-responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* Table Tent Card Preview & Print Frame */
+    .tent-card-preview-frame {
+      background: #ffffff;
+      border: 2px solid var(--admin-border);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+    .tent-card-brand {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: 0.08em;
+    }
+    .tent-card-sub {
+      font-size: 0.72rem;
+      color: var(--admin-gold);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin: 4px 0 20px;
+    }
+    .tent-card-table-badge {
+      display: inline-block;
+      background: #161210;
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 6px 18px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 20px;
+    }
+    .tent-card-qr-box {
+      width: 260px;
+      height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      padding: 10px;
+      border: 1px solid var(--admin-border);
+      border-radius: var(--radius-md);
+      margin-bottom: 20px;
+    }
+    .tent-card-instructions {
+      font-size: 0.82rem;
+      color: var(--text-body);
+      max-width: 260px;
+      line-height: 1.4;
+    }
+
+    @media print {
+      body * { visibility: hidden; }
+      .tent-card-preview-frame, .tent-card-preview-frame * {
+        visibility: visible;
+      }
+      .tent-card-preview-frame {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border: 2px solid #000;
+        width: 380px;
+      }
+    }
+  </style>
+</head>
+<body class="admin-body">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-emblem">EO</div>
+        <div class="sidebar-brand-info">
+          <span class="sidebar-brand-name">EMBER &amp; OAK</span>
+          <span class="sidebar-brand-sub">Culinary Console</span>
+        </div>
+      </div>
+      <button class="sidebar-toggle-btn" id="sidebar-toggle-btn">≡</button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <span class="sidebar-section-title">Operations</span>
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon">📊</span>
+        <span>Overview</span>
+      </a>
+      <a href="menu-management.html" class="nav-item">
+        <span class="nav-icon">🍽️</span>
+        <span>Menu Dishes</span>
+      </a>
+      <a href="categories.html" class="nav-item">
+        <span class="nav-icon">📂</span>
+        <span>Categories</span>
+      </a>
+      <a href="orders.html" class="nav-item">
+        <span class="nav-icon">🧾</span>
+        <span>Orders</span>
+        <span class="nav-badge">6</span>
+      </a>
+      <a href="reservations.html" class="nav-item">
+        <span class="nav-icon">📅</span>
+        <span>Reservations</span>
+      </a>
+
+      <span class="sidebar-section-title" style="margin-top: 12px;">Brand &amp; Digital</span>
+      <a href="qr-management.html" class="nav-item active">
+        <span class="nav-icon">📱</span>
+        <span>QR Table Menus</span>
+      </a>
+      <a href="gallery.html" class="nav-item">
+        <span class="nav-icon">🖼️</span>
+        <span>Photo Gallery</span>
+      </a>
+      <a href="website-settings.html" class="nav-item">
+        <span class="nav-icon">⚙️</span>
+        <span>Website Content</span>
+      </a>
+      <a href="reports.html" class="nav-item">
+        <span class="nav-icon">📈</span>
+        <span>Reports &amp; Sales</span>
+      </a>
+
+      <span class="sidebar-section-title" style="margin-top: 12px;">Admin</span>
+      <a href="profile.html" class="nav-item">
+        <span class="nav-icon">👤</span>
+        <span>Manager Profile</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar">AV</div>
+        <div class="sidebar-user-details">
+          <span class="sidebar-user-name" id="admin-user-display-name">Executive Chef Vance</span>
+          <span class="sidebar-user-role">General Manager</span>
+        </div>
+      </div>
+      <button class="sidebar-logout-btn" onclick="AdminAuth.logout()" title="Sign Out">🚪</button>
+    </div>
+  </aside>
+
+  <!-- Main Wrap -->
+  <div class="admin-main-wrap">
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="topbar-mobile-menu-btn" id="topbar-mobile-menu-btn">☰</button>
+        <div class="topbar-breadcrumbs">
+          <a href="index.html">Admin</a>
+          <span>/</span>
+          <strong class="topbar-page-title">QR Code Table Menu Generator</strong>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="restaurant-status-toggle" id="restaurant-status-toggle">
+          <span class="status-indicator-dot"></span>
+          <span id="restaurant-status-text">Kitchen Active • Open</span>
+        </div>
+        <a href="../qr-menu.html" class="view-live-site-btn" target="_blank">
+          <span>Owner QR Tool</span>
+          <span class="label-text">↗</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="admin-content">
+      <div class="content-header-row">
+        <div>
+          <h1 class="content-header-title">Table QR Generator &amp; Tent Cards</h1>
+          <p class="content-header-subtitle">Generate high-density scannable QR codes for each dining room table, download print-ready PNGs, or print tent cards.</p>
+        </div>
+      </div>
+
+      <div class="admin-qr-layout">
+        <!-- Left Configuration Controls -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">QR Target Configuration</h2>
+          </div>
+          <div class="admin-card-body" style="display: flex; flex-direction: column; gap: 20px;">
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <label for="qr-base-url-input" class="form-label" style="margin-bottom: 0;">Published Public Menu URL <span class="req">*</span></label>
+                <button type="button" id="qr-use-active-btn" class="btn-admin-secondary" style="font-size: 0.75rem; padding: 3px 8px;">⚡ Use Current Host</button>
+              </div>
+              <input type="url" id="qr-base-url-input" class="form-input" placeholder="e.g. https://your-brand.vercel.app/menu.html" required>
+              <span class="form-help">Auto-detected from active server or custom production domain.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="qr-table-select" class="form-label">Table Designation</label>
+              <select id="qr-table-select" class="form-select">
+                <option value="general">General Dining Room (No Table Query)</option>
+                <option value="T01" selected>Table T01 — Main Hearth Window</option>
+                <option value="T02">Table T02 — Center Sanctuary</option>
+                <option value="T03">Table T03 — Oak Pillar Booth</option>
+                <option value="T04">Table T04 — Stone Arch Banquette</option>
+                <option value="T05">Table T05 — Chef's Counter Seating</option>
+                <option value="T06">Table T06 — Wine Vault Alcove</option>
+                <option value="T07">Table T07 — Courtyard Veranda</option>
+                <option value="T08">Table T08 — Courtyard Veranda</option>
+                <option value="T09">Table T09 — Upper Mezzanine</option>
+                <option value="T10">Table T10 — Sommelier Private Booth</option>
+                <option value="PATIO-01">Patio Table P01</option>
+                <option value="BAR-01">Hearth Bar Seat B01</option>
+                <option value="VIP-VAULT">VIP Wine Vault Table</option>
+                <option value="custom">Custom Table Identifier...</option>
+              </select>
+            </div>
+
+            <div class="form-group" id="qr-custom-table-group" style="display: none;">
+              <label for="qr-custom-table" class="form-label">Custom Table Name / ID</label>
+              <input type="text" id="qr-custom-table" class="form-input" placeholder="e.g. Garden-04">
+            </div>
+
+            <!-- Target URL Preview -->
+            <div style="background: #fbf9f5; border: 1px solid var(--admin-border); border-radius: var(--radius-md); padding: 14px;">
+              <span style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 0.06em;">Encoded Target URL:</span>
+              <div id="qr-encoded-url-display" style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-dark); word-break: break-all; margin-top: 4px;">
+                menu.html?table=T01
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+              <button id="qr-refresh-btn" class="btn-admin-secondary">
+                <span>🔄 Regenerate</span>
+              </button>
+              <button id="qr-copy-url-btn" class="btn-admin-secondary">
+                <span>📋 Copy Link</span>
+              </button>
+              <a id="qr-test-menu-btn" href="../menu.html" target="_blank" class="btn-admin-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                <span>↗ Open Live Menu</span>
+              </a>
+              <button id="qr-download-btn" class="btn-admin-primary">
+                <span>⬇ Download PNG</span>
+              </button>
+              <button id="qr-print-tent-btn" class="btn-admin-secondary">
+                <span>🖨️ Print Tent Card</span>
+              </button>
+            </div>
+
+            <div style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; border-top: 1px solid var(--admin-border-subtle); padding-top: 16px;">
+              <strong>Staff Workflow:</strong> Print and place table cards in stands. When diners scan with their camera app, the mobile digital menu opens instantly with their exact table identified.
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Printable Tent Card Preview -->
+        <div>
+          <div class="tent-card-preview-frame">
+            <div class="tent-card-brand">EMBER &amp; OAK</div>
+            <div class="tent-card-sub">Wood-Fired Dining Experience</div>
+            <div class="tent-card-table-badge" id="tent-card-table-badge">TABLE T01</div>
+
+            <div class="tent-card-qr-box" id="qr-preview-canvas-box">
+              <!-- Rendered via qrcode.min.js -->
+            </div>
+
+            <div class="tent-card-instructions">
+              <strong>Scan with Phone Camera</strong>
+              <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 4px;">
+                Browse our seasonal hearth menu, inspect ingredients, and place dining orders directly from your table.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/menu-data.js"></script>
+  <script src="../js/qrcode.min.js"></script>
+  <script src="../js/admin-auth.js"></script>
+  <script src="../js/admin.js"></script>
+  <script src="../js/admin-qr.js"></script>
+</body>
+</html>
+

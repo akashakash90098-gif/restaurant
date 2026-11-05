@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manager Profile &amp; Settings • EMBER & OAK Admin</title>  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/admin-responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-emblem">EO</div>
+        <div class="sidebar-brand-info">
+          <span class="sidebar-brand-name">EMBER &amp; OAK</span>
+          <span class="sidebar-brand-sub">Culinary Console</span>
+        </div>
+      </div>
+      <button class="sidebar-toggle-btn" id="sidebar-toggle-btn">≡</button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <span class="sidebar-section-title">Operations</span>
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon">📊</span>
+        <span>Overview</span>
+      </a>
+      <a href="menu-management.html" class="nav-item">
+        <span class="nav-icon">🍽️</span>
+        <span>Menu Dishes</span>
+      </a>
+      <a href="categories.html" class="nav-item">
+        <span class="nav-icon">📂</span>
+        <span>Categories</span>
+      </a>
+      <a href="orders.html" class="nav-item">
+        <span class="nav-icon">🧾</span>
+        <span>Orders</span>
+        <span class="nav-badge">6</span>
+      </a>
+      <a href="reservations.html" class="nav-item">
+        <span class="nav-icon">📅</span>
+        <span>Reservations</span>
+      </a>
+
+      <span class="sidebar-section-title" style="margin-top: 12px;">Brand &amp; Digital</span>
+      <a href="qr-management.html" class="nav-item">
+        <span class="nav-icon">📱</span>
+        <span>QR Table Menus</span>
+      </a>
+      <a href="gallery.html" class="nav-item">
+        <span class="nav-icon">🖼️</span>
+        <span>Photo Gallery</span>
+      </a>
+      <a href="website-settings.html" class="nav-item">
+        <span class="nav-icon">⚙️</span>
+        <span>Website Content</span>
+      </a>
+      <a href="reports.html" class="nav-item">
+        <span class="nav-icon">📈</span>
+        <span>Reports &amp; Sales</span>
+      </a>
+
+      <span class="sidebar-section-title" style="margin-top: 12px;">Admin</span>
+      <a href="profile.html" class="nav-item active">
+        <span class="nav-icon">👤</span>
+        <span>Manager Profile</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar">AV</div>
+        <div class="sidebar-user-details">
+          <span class="sidebar-user-name" id="admin-user-display-name">Executive Chef Vance</span>
+          <span class="sidebar-user-role">General Manager</span>
+        </div>
+      </div>
+      <button class="sidebar-logout-btn" onclick="AdminAuth.logout()" title="Sign Out">🚪</button>
+    </div>
+  </aside>
+
+  <!-- Main Wrap -->
+  <div class="admin-main-wrap">
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="topbar-mobile-menu-btn" id="topbar-mobile-menu-btn">☰</button>
+        <div class="topbar-breadcrumbs">
+          <a href="index.html">Admin</a>
+          <span>/</span>
+          <strong class="topbar-page-title">Manager Profile &amp; Data System</strong>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="restaurant-status-toggle" id="restaurant-status-toggle">
+          <span class="status-indicator-dot"></span>
+          <span id="restaurant-status-text">Kitchen Active • Open</span>
+        </div>
+        <a href="../index.html" class="view-live-site-btn" target="_blank">
+          <span>View Public Site</span>
+          <span class="label-text">↗</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="admin-content">
+      <div class="content-header-row">
+        <div>
+          <h1 class="content-header-title">Manager Account &amp; Storage Controls</h1>
+          <p class="content-header-subtitle">Inspect your active administrator credentials, reset demo local storage, and review production upgrade requirements.</p>
+        </div>
+      </div>
+
+      <div class="admin-profile-grid">
+        <!-- Profile Card -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">Active Manager Profile</h2>
+          </div>
+          <div class="admin-card-body" style="display: flex; flex-direction: column; gap: 20px;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div style="width: 64px; height: 64px; border-radius: 50%; background: #161210; border: 2px solid var(--admin-gold); color: var(--admin-gold); font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; justify-content: center;">
+                AV
+              </div>
+              <div>
+                <h3 style="font-family: var(--font-serif); font-size: 1.25rem; color: var(--text-dark); margin-bottom: 2px;">
+                  Alexander Vance
+                </h3>
+                <span class="badge-status accepted">Executive Chef &amp; General Manager</span>
+              </div>
+            </div>
+
+            <div style="background: var(--admin-surface-muted); border-radius: var(--radius-md); padding: 16px; font-size: 0.88rem; display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--text-muted);">Manager Email:</span>
+                <strong>admin@emberandoak.com</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--text-muted);">Session Type:</span>
+                <span class="badge-status completed">Frontend Demo Authenticated</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--text-muted);">Demo Password:</span>
+                <code>ember123</code>
+              </div>
+            </div>
+
+            <button onclick="AdminAuth.logout()" class="btn-admin-danger" style="align-self: flex-start;">
+              <span>🚪 Sign Out of Console</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Data Management & Reset Card -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">Browser Data &amp; Reset Utility</h2>
+          </div>
+          <div class="admin-card-body" style="display: flex; flex-direction: column; gap: 18px;">
+            <p style="font-size: 0.88rem; color: var(--text-body); line-height: 1.6;">
+              Custom dishes, category modifications, demo orders, and settings are preserved in this browser's <code>localStorage</code>.
+            </p>
+
+            <div style="background: #fdfaf2; border: 1px dashed var(--admin-gold); border-radius: var(--radius-md); padding: 14px; font-size: 0.82rem; color: #755513; line-height: 1.5;">
+              <strong>Resetting Demo Data:</strong> If you wish to restore the initial 28 gourmet dishes, original categories, and default orders, click below.
+            </div>
+
+            <button id="reset-all-demo-btn" class="btn-admin-danger" style="align-self: flex-start; padding: 10px 18px;">
+              <span>⚠️ Reset Entire Demo Database to Defaults</span>
+            </button>
+
+            <div style="border-top: 1px solid var(--admin-border-subtle); padding-top: 14px; font-size: 0.78rem; color: var(--text-muted); line-height: 1.5;">
+              <strong>Production Note:</strong> Password changes and role-based permissions cannot be altered in static localStorage. To connect to an active database (e.g. Supabase, Firebase, or Node.js backend), see the documentation in <code>README.md</code>.
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/menu-data.js"></script>
+  <script src="../js/admin-auth.js"></script>
+  <script src="../js/admin.js"></script>
+  <script>
+    document.getElementById('reset-all-demo-btn').addEventListener('click', () => {
+      AdminUI.confirm(
+        'Reset All Demo Data',
+        'Are you sure you want to reset all dishes, categories, orders, reservations, and settings to original factory seed defaults?',
+        () => {
+          EmberStore.resetDefaults();
+          AdminUI.showToast('All demo storage reset to default gourmet catalog!', 'success');
+          setTimeout(() => window.location.reload(), 1000);
+        }
+      );
+    });
+  </script>
+</body>
+</html>
+

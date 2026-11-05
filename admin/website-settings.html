@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Content &amp; Settings • EMBER & OAK Admin</title>  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/admin-responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-emblem">EO</div>
+        <div class="sidebar-brand-info">
+          <span class="sidebar-brand-name">EMBER &amp; OAK</span>
+          <span class="sidebar-brand-sub">Culinary Console</span>
+        </div>
+      </div>
+      <button class="sidebar-toggle-btn" id="sidebar-toggle-btn">≡</button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <span class="sidebar-section-title">Operations</span>
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon">📊</span>
+        <span>Overview</span>
+      </a>
+      <a href="menu-management.html" class="nav-item">
+        <span class="nav-icon">🍽️</span>
+        <span>Menu Dishes</span>
+      </a>
+      <a href="categories.html" class="nav-item">
+        <span class="nav-icon">📂</span>
+        <span>Categories</span>
+      </a>
+      <a href="orders.html" class="nav-item">
+        <span class="nav-icon">🧾</span>
+        <span>Orders</span>
+        <span class="nav-badge">6</span>
+      </a>
+      <a href="reservations.html" class="nav-item">
+        <span class="nav-icon">📅</span>
+        <span>Reservations</span>
+      </a>
+
+      <span class="sidebar-section-title" style="margin-top: 12px;">Brand &amp; Digital</span>
+      <a href="qr-management.html" class="nav-item">
+        <span class="nav-icon">📱</span>
+        <span>QR Table Menus</span>
+      </a>
+      <a href="gallery.html" class="nav-item">
+        <span class="nav-icon">🖼️</span>
+        <span>Photo Gallery</span>
+      </a>
+      <a href="website-settings.html" class="nav-item active">
+        <span class="nav-icon">⚙️</span>
+        <span>Website Content</span>
+      </a>
+      <a href="reports.html" class="nav-item">
+        <span class="nav-icon">📈</span>
+        <span>Reports &amp; Sales</span>
+      </a>
+
+      <span class="sidebar-section-title" style="margin-top: 12px;">Admin</span>
+      <a href="profile.html" class="nav-item">
+        <span class="nav-icon">👤</span>
+        <span>Manager Profile</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar">AV</div>
+        <div class="sidebar-user-details">
+          <span class="sidebar-user-name" id="admin-user-display-name">Executive Chef Vance</span>
+          <span class="sidebar-user-role">General Manager</span>
+        </div>
+      </div>
+      <button class="sidebar-logout-btn" onclick="AdminAuth.logout()" title="Sign Out">🚪</button>
+    </div>
+  </aside>
+
+  <!-- Main Wrap -->
+  <div class="admin-main-wrap">
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="topbar-mobile-menu-btn" id="topbar-mobile-menu-btn">☰</button>
+        <div class="topbar-breadcrumbs">
+          <a href="index.html">Admin</a>
+          <span>/</span>
+          <strong class="topbar-page-title">Website Content Settings</strong>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="restaurant-status-toggle" id="restaurant-status-toggle">
+          <span class="status-indicator-dot"></span>
+          <span id="restaurant-status-text">Kitchen Active • Open</span>
+        </div>
+        <a href="../index.html" class="view-live-site-btn" target="_blank">
+          <span>View Public Site</span>
+          <span class="label-text">↗</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="admin-content">
+      <div class="content-header-row">
+        <div>
+          <h1 class="content-header-title">Brand &amp; Website Content</h1>
+          <p class="content-header-subtitle">Customize restaurant identity, address, contact numbers, hours, hero banner copy, and financial rates.</p>
+        </div>
+      </div>
+
+      <div class="admin-settings-layout">
+        <!-- Settings Form Card -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">Brand Identity &amp; Contact Details</h2>
+            <button type="button" id="settings-reset-btn" class="btn-admin-danger" style="font-size: 0.78rem;">Revert Defaults</button>
+          </div>
+
+          <form id="website-settings-form" style="padding: 24px;" novalidate>
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label for="settings-name" class="form-label">Restaurant Name <span class="req">*</span></label>
+                <input type="text" id="settings-name" class="form-input" required>
+              </div>
+
+              <div class="form-group">
+                <label for="settings-tagline" class="form-label">Tagline</label>
+                <input type="text" id="settings-tagline" class="form-input">
+              </div>
+
+              <div class="form-group span-2">
+                <label for="settings-hero-headline" class="form-label">Homepage Hero Headline</label>
+                <input type="text" id="settings-hero-headline" class="form-input">
+              </div>
+
+              <div class="form-group span-2">
+                <label for="settings-hero-desc" class="form-label">Homepage Brand Description</label>
+                <textarea id="settings-hero-desc" class="form-textarea" style="min-height: 80px;"></textarea>
+              </div>
+
+              <div class="form-group span-2">
+                <label for="settings-hero-img" class="form-label">Hero Background Image</label>
+                <input type="text" id="settings-hero-img" class="form-input" placeholder="assets/images/hero-interior.jpg">
+              </div>
+
+              <div class="form-group">
+                <label for="settings-phone" class="form-label">Contact Phone</label>
+                <input type="tel" id="settings-phone" class="form-input">
+              </div>
+
+              <div class="form-group">
+                <label for="settings-email" class="form-label">Reservation Email</label>
+                <input type="email" id="settings-email" class="form-input">
+              </div>
+
+              <div class="form-group span-2">
+                <label for="settings-address" class="form-label">Physical Street Address</label>
+                <input type="text" id="settings-address" class="form-input">
+              </div>
+
+              <div class="form-group span-2">
+                <label for="settings-hours" class="form-label">Dining Hours</label>
+                <input type="text" id="settings-hours" class="form-input">
+              </div>
+
+              <div class="form-group">
+                <label for="settings-currency" class="form-label">Currency Symbol</label>
+                <input type="text" id="settings-currency" class="form-input" placeholder="$">
+              </div>
+
+              <div class="form-group">
+                <label for="settings-tax" class="form-label">Tax Rate (decimal e.g. 0.0825 for 8.25%)</label>
+                <input type="number" id="settings-tax" class="form-input" step="0.0025">
+              </div>
+
+              <div class="form-group">
+                <label for="settings-service" class="form-label">Kitchen Service Craft Rate (e.g. 0.05)</label>
+                <input type="number" id="settings-service" class="form-input" step="0.005">
+              </div>
+
+              <div class="form-group">
+                <label for="settings-base-url" class="form-label">Digital Menu Production Base URL</label>
+                <input type="url" id="settings-base-url" class="form-input" placeholder="https://your-domain.com/menu.html">
+              </div>
+            </div>
+
+            <div style="margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--admin-border-subtle); display: flex; justify-content: flex-end;">
+              <button type="submit" class="btn-admin-primary">
+                <span>Save &amp; Update Live Site</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Live Preview Card -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">Live Preview (Brand Mock)</h2>
+          </div>
+          <div class="admin-card-body" style="background: #14100e; color: #ffffff; border-radius: 0 0 var(--radius-lg) var(--radius-lg); padding: 24px;">
+            <div style="font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--admin-gold); margin-bottom: 4px;" id="preview-brand-tagline">
+              Modern Dining • Wood-Fired Craft
+            </div>
+            <h3 style="font-family: var(--font-serif); font-size: 1.6rem; color: #ffffff; margin-bottom: 12px;" id="preview-brand-name">
+              EMBER &amp; OAK
+            </h3>
+            <div style="position: relative; height: 140px; border-radius: var(--radius-md); overflow: hidden; margin-bottom: 16px;">
+              <img id="preview-hero-img" src="../assets/images/hero-interior.jpg" alt="Hero Preview" style="width: 100%; height: 100%; object-fit: cover;">
+              <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.45);"></div>
+              <div style="position: absolute; bottom: 12px; left: 12px; right: 12px;">
+                <h4 style="font-family: var(--font-serif); font-size: 0.95rem; color: #fff;" id="preview-hero-headline">An Experience Beyond the Ordinary.</h4>
+              </div>
+            </div>
+            <p style="font-size: 0.8rem; color: #bbb; line-height: 1.5;" id="preview-hero-desc">
+              Where primordial white oak embers meet refined contemporary gastronomy.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/menu-data.js"></script>
+  <script src="../js/admin-auth.js"></script>
+  <script src="../js/admin.js"></script>
+  <script src="../js/admin-settings.js"></script>
+</body>
+</html>
+

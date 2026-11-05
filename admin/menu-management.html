@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Dishes Management • EMBER & OAK Admin</title>  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/admin-responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-emblem">EO</div>
+        <div class="sidebar-brand-info">
+          <span class="sidebar-brand-name">EMBER &amp; OAK</span>
+          <span class="sidebar-brand-sub">Culinary Console</span>
+        </div>
+      </div>
+      <button class="sidebar-toggle-btn" id="sidebar-toggle-btn">≡</button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <span class="sidebar-section-title">Operations</span>
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon">📊</span>
+        <span>Overview</span>
+      </a>
+      <a href="menu-management.html" class="nav-item active">
+        <span class="nav-icon">🍽️</span>
+        <span>Menu Dishes</span>
+      </a>
+      <a href="categories.html" class="nav-item">
+        <span class="nav-icon">📂</span>
+        <span>Categories</span>
+      </a>
+      <a href="orders.html" class="nav-item">
+        <span class="nav-icon">🧾</span>
+        <span>Orders</span>
+        <span class="nav-badge">6</span>
+      </a>
+      <a href="reservations.html" class="nav-item">
+        <span class="nav-icon">📅</span>
+        <span>Reservations</span>
+      </a>
+
+      <span class="sidebar-section-title" style="margin-top: 12px;">Brand &amp; Digital</span>
+      <a href="qr-management.html" class="nav-item">
+        <span class="nav-icon">📱</span>
+        <span>QR Table Menus</span>
+      </a>
+      <a href="gallery.html" class="nav-item">
+        <span class="nav-icon">🖼️</span>
+        <span>Photo Gallery</span>
+      </a>
+      <a href="website-settings.html" class="nav-item">
+        <span class="nav-icon">⚙️</span>
+        <span>Website Content</span>
+      </a>
+      <a href="reports.html" class="nav-item">
+        <span class="nav-icon">📈</span>
+        <span>Reports &amp; Sales</span>
+      </a>
+
+      <span class="sidebar-section-title" style="margin-top: 12px;">Admin</span>
+      <a href="profile.html" class="nav-item">
+        <span class="nav-icon">👤</span>
+        <span>Manager Profile</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar">AV</div>
+        <div class="sidebar-user-details">
+          <span class="sidebar-user-name" id="admin-user-display-name">Executive Chef Vance</span>
+          <span class="sidebar-user-role">General Manager</span>
+        </div>
+      </div>
+      <button class="sidebar-logout-btn" onclick="AdminAuth.logout()" title="Sign Out">🚪</button>
+    </div>
+  </aside>
+
+  <!-- Main Wrap -->
+  <div class="admin-main-wrap">
+    <!-- Topbar -->
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="topbar-mobile-menu-btn" id="topbar-mobile-menu-btn">☰</button>
+        <div class="topbar-breadcrumbs">
+          <a href="index.html">Admin</a>
+          <span>/</span>
+          <strong class="topbar-page-title">Culinary Menu Dishes</strong>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="restaurant-status-toggle" id="restaurant-status-toggle">
+          <span class="status-indicator-dot"></span>
+          <span id="restaurant-status-text">Kitchen Active • Open</span>
+        </div>
+        <a href="../menu.html" class="view-live-site-btn" target="_blank">
+          <span>Customer Menu</span>
+          <span class="label-text">↗</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <main class="admin-content">
+      <div class="content-header-row">
+        <div>
+          <h1 class="content-header-title">Menu Dishes &amp; Pricing</h1>
+          <p class="content-header-subtitle">Create, update, price, and toggle availability for all restaurant items across categories.</p>
+        </div>
+        <div class="content-header-actions">
+          <div style="display: flex; border: 1px solid var(--admin-border); border-radius: var(--radius-md); overflow: hidden; background: #fff;">
+            <button id="view-table-btn" class="action-icon-btn active" style="border: none; border-radius: 0;" title="Table View">☰</button>
+            <button id="view-grid-btn" class="action-icon-btn" style="border: none; border-radius: 0;" title="Grid View">⊞</button>
+          </div>
+          <button id="add-dish-btn" class="btn-admin-primary">
+            <span>+ Add New Dish</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Dish Table Card -->
+      <div class="admin-card">
+        <!-- Toolbar Filters -->
+        <div class="table-toolbar-row">
+          <div class="table-search-box">
+            <span>🔍</span>
+            <input type="text" id="menu-search-input" placeholder="Search dishes, descriptions, truffles..." aria-label="Search dishes">
+          </div>
+
+          <div class="table-filter-group">
+            <select id="menu-category-filter" class="table-select" aria-label="Filter by category">
+              <option value="all">All Categories</option>
+            </select>
+
+            <select id="menu-availability-filter" class="table-select" aria-label="Filter by availability">
+              <option value="all">All Statuses</option>
+              <option value="available">Available Only</option>
+              <option value="unavailable">Sold Out Only</option>
+            </select>
+
+            <select id="menu-sort-select" class="table-select" aria-label="Sort dishes">
+              <option value="name-asc">Sort: Name (A–Z)</option>
+              <option value="name-desc">Sort: Name (Z–A)</option>
+              <option value="price-asc">Sort: Price (Low–High)</option>
+              <option value="price-desc">Sort: Price (High–Low)</option>
+              <option value="category">Sort: Category</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Count label -->
+        <div style="padding: 10px 24px; font-size: 0.8rem; color: var(--text-muted); border-bottom: 1px solid var(--admin-border-subtle); display: flex; justify-content: space-between;">
+          <span id="dishes-count-label">Loading catalog...</span>
+          <span style="color: var(--admin-gold);">Changes sync with public site in this browser</span>
+        </div>
+
+        <!-- Table View -->
+        <div class="admin-table-wrap" id="dishes-table-wrap">
+          <table class="admin-data-table">
+            <thead>
+              <tr>
+                <th style="min-width: 260px;">Dish Details</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Availability</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="dishes-table-body">
+              <!-- Rendered via admin-menu.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Grid View (Hidden by default) -->
+        <div id="dishes-grid-wrap" class="admin-dishes-grid" style="display: none; padding: 24px;">
+          <div id="dishes-grid-container" style="display: contents;"></div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="admin-empty-state" id="dishes-empty-state" style="display: none;">
+          <div class="empty-state-icon">🍽️</div>
+          <h3 class="empty-state-title">No matching menu dishes found</h3>
+          <p class="empty-state-desc">Try clearing your search query or choosing a different category filter.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add / Edit Dish Modal -->
+  <div class="admin-modal-backdrop" id="dish-modal">
+    <div class="admin-modal-window">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="dish-modal-title">Add New Culinary Dish</h3>
+        <button class="admin-modal-close-btn" id="dish-modal-close">✕</button>
+      </div>
+
+      <form id="dish-form" novalidate>
+        <div class="admin-modal-body">
+          <input type="hidden" id="dish-form-id">
+
+          <div class="admin-form-grid">
+            <div class="form-group span-2">
+              <label for="dish-form-name" class="form-label">Dish Name <span class="req">*</span></label>
+              <input type="text" id="dish-form-name" class="form-input" placeholder="e.g. The Ember Wagyu Reserve" required>
+              <span class="form-error-msg">Dish name is required.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="dish-form-category" class="form-label">Category <span class="req">*</span></label>
+              <select id="dish-form-category" class="form-select" required>
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="dish-form-price" class="form-label">Regular Price ($) <span class="req">*</span></label>
+              <input type="number" id="dish-form-price" class="form-input" placeholder="28.00" step="0.25" min="0" required>
+              <span class="form-error-msg">Valid price is required.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="dish-form-discount-price" class="form-label">Special / Discount Price ($)</label>
+              <input type="number" id="dish-form-discount-price" class="form-input" placeholder="Optional" step="0.25" min="0">
+              <span class="form-help">Leave empty if not discounted.</span>
+            </div>
+
+            <div class="form-group span-2">
+              <label for="dish-form-image" class="form-label">Dish Image URL or Path</label>
+              <div style="display: flex; gap: 12px; align-items: center;">
+                <input type="text" id="dish-form-image" class="form-input" placeholder="assets/images/dish-wagyu-burger.jpg or URL">
+                <img id="dish-img-preview" src="../assets/images/hero-interior.jpg" alt="Preview" style="width: 48px; height: 48px; border-radius: var(--radius-sm); object-fit: cover; border: 1px solid var(--admin-border);">
+              </div>
+            </div>
+
+            <div class="form-group span-2">
+              <label for="dish-form-short-desc" class="form-label">Short Menu Description <span class="req">*</span></label>
+              <input type="text" id="dish-form-short-desc" class="form-input" placeholder="Concise editorial summary shown on card" required>
+            </div>
+
+            <div class="form-group span-2">
+              <label for="dish-form-long-desc" class="form-label">Full Culinary Description</label>
+              <textarea id="dish-form-long-desc" class="form-textarea" placeholder="Detailed culinary techniques, provenance, seasoning, and texture notes"></textarea>
+            </div>
+
+            <div class="form-group span-2">
+              <label for="dish-form-ingredients" class="form-label">Key Ingredients &amp; Flavor Notes</label>
+              <input type="text" id="dish-form-ingredients" class="form-input" placeholder="e.g. A5 Wagyu, White Oak Smoke, Marrow Aioli, Aged Cheddar (comma separated)">
+            </div>
+
+            <div class="form-group span-2" style="display: flex; flex-wrap: wrap; gap: 20px; padding: 14px 0; border-top: 1px solid var(--admin-border-subtle);">
+              <label class="form-switch-label">
+                <input type="checkbox" id="dish-form-veg" class="form-switch-input">
+                <span class="form-switch-track"></span>
+                <span>🌱 Vegetarian</span>
+              </label>
+
+              <label class="form-switch-label">
+                <input type="checkbox" id="dish-form-gf" class="form-switch-input">
+                <span class="form-switch-track"></span>
+                <span>🌾 Gluten-Free</span>
+              </label>
+
+              <label class="form-switch-label">
+                <input type="checkbox" id="dish-form-special" class="form-switch-input">
+                <span class="form-switch-track"></span>
+                <span>👑 Chef's Reserve Signature</span>
+              </label>
+
+              <label class="form-switch-label">
+                <input type="checkbox" id="dish-form-available" class="form-switch-input" checked>
+                <span class="form-switch-track"></span>
+                <span>● Available for Ordering</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-modal-footer">
+          <button type="button" class="btn-admin-secondary" id="dish-modal-cancel">Cancel</button>
+          <button type="submit" class="btn-admin-primary">Save Culinary Dish</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/menu-data.js"></script>
+  <script src="../js/admin-auth.js"></script>
+  <script src="../js/admin.js"></script>
+  <script src="../js/admin-menu.js"></script>
+</body>
+</html>
+

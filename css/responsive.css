@@ -1,0 +1,560 @@
+/**
+ * EMBER & OAK — Modern Dining
+ * Responsive Adaptations & Print Stylesheets
+ * Flawless display across mobile phones, tablets, large screens, and printable table tent cards.
+ */
+
+/* ==================== GLOBAL VIEWPORT GUARDS ==================== */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+}
+
+/* ==================== LARGE TABLETS & LAPTOPS (<= 1200px) ==================== */
+@media (max-width: 1200px) {
+  .menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .showcase-plate-stage {
+    width: 360px;
+    height: 360px;
+  }
+
+  .showcase-orbit-arc {
+    width: 500px;
+    height: 500px;
+  }
+
+  .footer-top-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+}
+
+/* ==================== TABLETS (<= 992px) ==================== */
+@media (max-width: 992px) {
+  :root {
+    --nav-height: 74px;
+  }
+
+  .nav-links-menu {
+    display: none;
+  }
+
+  .mobile-nav-toggle {
+    display: flex;
+  }
+
+  /* Hero adjustments */
+  .hero-main-heading {
+    font-size: 3.2rem;
+  }
+
+  /* Sequential Showcase stacked */
+  .showcase-stage-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .showcase-editorial-col {
+    padding-right: 0;
+    order: 2;
+  }
+
+  .showcase-visual-col {
+    order: 1;
+    height: 480px;
+    --orbit-radius: 230px;
+  }
+
+  .showcase-actions-row {
+    justify-content: center;
+  }
+
+  .showcase-nav-row {
+    justify-content: center;
+  }
+
+  .showcase-tags-wrap {
+    justify-content: center;
+  }
+
+  /* Experience Grid */
+  .experience-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* Story Grid */
+  .story-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .story-content-col {
+    padding-right: 0;
+  }
+
+  /* Contact Grid */
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  /* Dish Modal */
+  .modal-card {
+    grid-template-columns: 1fr;
+    max-height: 85vh;
+  }
+
+  .modal-dish-img {
+    min-height: 240px;
+    max-height: 300px;
+  }
+
+  .modal-body-col {
+    padding: 24px 20px;
+  }
+
+  /* Cinematic Intro Annotations */
+  .scene-annotation-grid {
+    flex-direction: column;
+    gap: 12px;
+    bottom: 50px;
+    padding: 0 20px;
+  }
+
+  .scene-annotation-box {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .scene-annotation-box:last-child {
+    display: none;
+  }
+
+  /* Mobile Nav Drawer Scrolling */
+  .mobile-nav-drawer {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 90px 24px 40px;
+    justify-content: flex-start;
+  }
+}
+
+/* ==================== MOBILE PHONES (<= 768px) ==================== */
+@media (max-width: 768px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 14px;
+  }
+
+  .dish-card {
+    padding: 16px 14px;
+  }
+
+  .dish-card-img-wrap {
+    max-width: 130px;
+    margin: -24px auto 12px;
+  }
+
+  .dish-title {
+    font-size: 1.05rem;
+  }
+
+  .dish-desc {
+    display: none; /* Keep mobile cards sleek and visual */
+  }
+
+  .dish-price {
+    font-size: 1.1rem;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .gallery-grid-item.span-2 {
+    grid-column: span 1;
+  }
+
+  .reservation-card-wrap {
+    padding: 28px 18px;
+  }
+
+  .reservation-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group.span-2 {
+    grid-column: span 1;
+  }
+
+  .form-submit-row {
+    grid-column: span 1;
+  }
+
+  /* Showcase visual mobile */
+  .showcase-visual-col {
+    --orbit-radius: 170px;
+    height: 380px;
+  }
+
+  .showcase-plate-stage {
+    width: 270px;
+    height: 270px;
+  }
+
+  .showcase-orbit-arc {
+    width: 340px;
+    height: 340px;
+  }
+
+  .orbit-mini-dot {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Cart Drawer Full Screen on Mobile */
+  .cart-drawer {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .footer-top-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .footer-bottom-bar {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .footer-bottom-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .cinematic-hud-top {
+    top: 16px;
+    left: 16px;
+    right: 16px;
+  }
+
+  .intro-brand-pill {
+    padding: 6px 12px;
+  }
+
+  .hud-section-name {
+    font-size: 0.65rem;
+  }
+
+  .intro-ctrl-btn {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+}
+
+/* ==================== SMALL PHONES (<= 480px) ==================== */
+@media (max-width: 480px) {
+  .menu-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .dish-card-img-wrap {
+    max-width: 160px;
+    margin: -24px auto 14px;
+  }
+
+  .hero-main-heading {
+    font-size: 2.2rem;
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-primary-gold, .btn-outline-glass {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Orbital Showcase on Small Phones */
+  .showcase-visual-col {
+    --orbit-radius: 130px;
+    height: 310px;
+  }
+
+  .showcase-plate-stage {
+    width: 200px;
+    height: 200px;
+  }
+
+  .showcase-orbit-arc {
+    width: 260px;
+    height: 260px;
+  }
+
+  .orbit-mini-dot {
+    width: 38px;
+    height: 38px;
+  }
+
+  .showcase-dish-title {
+    font-size: 1.85rem;
+  }
+
+  .showcase-dish-price {
+    font-size: 1.6rem;
+  }
+
+  /* Modal Card Compact */
+  .modal-card {
+    max-height: 92vh;
+    border-radius: var(--radius-md);
+  }
+
+  .modal-dish-img {
+    min-height: 190px;
+    max-height: 220px;
+  }
+
+  .modal-body-col {
+    padding: 18px 14px;
+  }
+}
+
+/* ==================== EXTRA SMALL PHONES (<= 360px) ==================== */
+@media (max-width: 360px) {
+  .hero-main-heading {
+    font-size: 1.9rem;
+  }
+
+  .showcase-visual-col {
+    --orbit-radius: 110px;
+    height: 260px;
+  }
+
+  .showcase-plate-stage {
+    width: 170px;
+    height: 170px;
+  }
+
+  .showcase-orbit-arc {
+    width: 220px;
+    height: 220px;
+  }
+
+  .orbit-mini-dot {
+    width: 32px;
+    height: 32px;
+  }
+
+  .brand-name {
+    font-size: 1.05rem;
+  }
+
+  .brand-emblem {
+    width: 32px;
+    height: 32px;
+    font-size: 0.95rem;
+  }
+}
+
+/* ==================== MOBILE PERSISTENT FLOATING CART BAR ==================== */
+.mobile-cart-float-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(18, 14, 12, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border-gold);
+  padding: 12px 20px;
+  z-index: 800;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transform: translateY(100%);
+  transition: transform 0.35s var(--ease-smooth);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.mobile-cart-float-bar.visible {
+  transform: translateY(0);
+}
+
+.float-bar-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.float-count {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--gold-light);
+  text-transform: uppercase;
+}
+
+.float-total {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.float-view-order-btn {
+  background: linear-gradient(135deg, var(--gold-primary), var(--amber-glow));
+  color: #120e0c;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: var(--radius-pill);
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ==================== PRINT STYLES (TABLE TENT QR CARDS) ==================== */
+@media print {
+  /* Hide all digital UI */
+  #cinematic-intro-overlay,
+  #scroll-progress-indicator,
+  .main-navbar,
+  .hero-section,
+  .signature-showcase-section,
+  .interactive-menu-section,
+  .story-section,
+  .gallery-section,
+  .reservations-section,
+  .contact-section,
+  .main-footer,
+  .cart-drawer,
+  .cart-drawer-overlay,
+  .dish-detail-modal,
+  .checkout-demo-modal,
+  .gallery-lightbox-modal,
+  .back-to-top-btn,
+  .mobile-cart-float-bar,
+  #toast-container,
+  .qr-dashboard-controls-card {
+    display: none !important;
+  }
+
+  body, html {
+    background: #ffffff !important;
+    color: #1a1614 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Printable Table Tent Container */
+  .table-tent-printable-card {
+    display: block !important;
+    position: relative !important;
+    width: 4.5in !important;
+    margin: 1in auto !important;
+    padding: 0.4in !important;
+    border: 2px solid #1a1614 !important;
+    border-radius: 8px !important;
+    text-align: center !important;
+    page-break-inside: avoid;
+    box-shadow: none !important;
+  }
+
+  .tent-header-brand {
+    font-family: Georgia, serif !important;
+    font-size: 22pt !important;
+    font-weight: bold !important;
+    color: #1a1614 !important;
+    letter-spacing: 2px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .tent-header-sub {
+    font-size: 9pt !important;
+    text-transform: uppercase !important;
+    letter-spacing: 3px !important;
+    color: #777777 !important;
+    margin-bottom: 20px !important;
+  }
+
+  .tent-qr-box {
+    width: 2.2in !important;
+    height: 2.2in !important;
+    margin: 0 auto 16px !important;
+  }
+
+  .tent-qr-box canvas, .tent-qr-box img {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .tent-table-badge {
+    display: inline-block !important;
+    border: 1px solid #1a1614 !important;
+    padding: 4px 16px !important;
+    font-size: 11pt !important;
+    font-weight: bold !important;
+    letter-spacing: 1px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .tent-scan-instruction {
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+    color: #333333 !important;
+    margin-bottom: 12px !important;
+  }
+
+  .tent-wifi-box {
+    font-size: 8pt !important;
+    border-top: 1px dashed #cccccc !important;
+    padding-top: 10px !important;
+    color: #555555 !important;
+  }
+}
+
+/* ==================== REDUCED MOTION PREFERENCES ==================== */
+@media (prefers-reduced-motion: reduce), (update: slow) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero-bg-media {
+    animation: none !important;
+  }
+
+  .floating-leaf {
+    animation: none !important;
+  }
+
+  .hud-gold-dot {
+    animation: none !important;
+  }
+
+  #hero-ember-canvas {
+    display: none !important;
+  }
+}
+

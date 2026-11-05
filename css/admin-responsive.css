@@ -1,0 +1,304 @@
+/**
+ * EMBER & OAK — Modern Dining
+ * Responsive Styles for Admin Dashboard
+ * Viewports: Desktop (1440px+), Laptop (1024-1439px), Tablet (768-1023px), Mobile (320-767px)
+ */
+
+/* ==================== LAPTOP (1024px - 1439px) ==================== */
+@media (max-width: 1439px) {
+  .admin-content {
+    padding: 24px;
+  }
+
+  .dashboard-analytics-row {
+    grid-template-columns: 1.5fr 1fr;
+    gap: 20px;
+  }
+
+  .kpi-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .admin-settings-layout {
+    grid-template-columns: 1.6fr 1fr;
+    gap: 20px;
+  }
+
+  .admin-qr-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+}
+
+/* ==================== TABLET (768px - 1023px) ==================== */
+@media (max-width: 1023px) {
+  :root {
+    --sidebar-width: 250px;
+  }
+
+  .admin-sidebar {
+    transform: translateX(-100%);
+    z-index: 1000;
+    box-shadow: 8px 0 32px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .admin-sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  /* Backdrop overlay for mobile drawer */
+  .admin-sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .admin-sidebar-backdrop.active {
+    display: block;
+    opacity: 1;
+  }
+
+  .admin-main-wrap {
+    margin-left: 0;
+  }
+
+  .topbar-mobile-menu-btn {
+    display: inline-flex;
+  }
+
+  /* Analytics & Content Layouts Collapse to 1 Column */
+  .dashboard-analytics-row,
+  .admin-settings-layout,
+  .admin-qr-layout,
+  .admin-reports-grid,
+  .admin-profile-grid,
+  .admin-two-col-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+  }
+
+  .kpi-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Admin Login Split layout stacks on tablet */
+  .admin-login-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-login-hero-col {
+    display: none;
+  }
+
+  .admin-login-form-col {
+    padding: 36px 24px;
+  }
+
+  .admin-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group.span-2 {
+    grid-column: span 1;
+  }
+
+  .admin-table-wrap {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ==================== MOBILE PHONES (320px - 767px) ==================== */
+@media (max-width: 767px) {
+  .admin-topbar {
+    padding: 0 14px;
+    height: 64px;
+  }
+
+  .admin-content {
+    padding: 16px 14px;
+  }
+
+  .content-header-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .content-header-title {
+    font-size: 1.35rem;
+  }
+
+  .content-header-subtitle {
+    font-size: 0.84rem;
+  }
+
+  .content-header-actions {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .content-header-actions .btn-admin-primary,
+  .content-header-actions .btn-admin-secondary {
+    flex: 1;
+    min-width: 130px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .topbar-date {
+    display: none;
+  }
+
+  .kpi-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .table-toolbar-row {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 14px;
+    gap: 12px;
+  }
+
+  .table-search-box {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .table-filter-group {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .table-select {
+    width: 100%;
+  }
+
+  .admin-card-header {
+    padding: 14px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .admin-card-body {
+    padding: 14px 16px;
+  }
+
+  /* Dishes & Gallery Grid on Mobile */
+  .admin-dishes-grid,
+  #dishes-grid-wrap,
+  #gallery-cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    padding: 16px !important;
+  }
+
+  /* Modals on Mobile */
+  .admin-modal-backdrop {
+    padding: 10px;
+  }
+
+  .admin-modal-window {
+    max-height: 94vh;
+    border-radius: var(--radius-md);
+  }
+
+  .admin-modal-header,
+  .admin-modal-body,
+  .admin-modal-footer {
+    padding: 14px 16px;
+  }
+
+  .admin-modal-footer {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  .admin-modal-footer button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Toast Notifications */
+  .admin-toast-container {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .admin-toast {
+    min-width: auto;
+    width: 100%;
+    font-size: 0.84rem;
+    padding: 10px 14px;
+  }
+
+  .topbar-page-title {
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.95rem;
+  }
+
+  .restaurant-status-toggle {
+    padding: 6px 10px;
+    font-size: 0.76rem;
+  }
+
+  .view-live-site-btn {
+    padding: 6px 12px;
+    font-size: 0.76rem;
+  }
+}
+
+/* ==================== SMALL PHONES (320px - 480px) ==================== */
+@media (max-width: 480px) {
+  .topbar-breadcrumbs a,
+  .topbar-breadcrumbs span:not(.topbar-page-title) {
+    display: none;
+  }
+
+  .topbar-page-title {
+    max-width: 125px;
+    font-size: 0.88rem;
+  }
+
+  #restaurant-status-text {
+    display: none;
+  }
+
+  .restaurant-status-toggle {
+    padding: 6px 8px;
+    gap: 0;
+  }
+
+  .view-live-site-btn span:first-child {
+    display: none;
+  }
+
+  .view-live-site-btn span.label-text {
+    display: inline-block !important;
+  }
+
+  .admin-login-card {
+    padding: 24px 18px;
+  }
+
+  .admin-login-title {
+    font-size: 1.5rem;
+  }
+}

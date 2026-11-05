@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Table Reservations • EMBER & OAK Admin</title>  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/admin-responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-emblem">EO</div>
+        <div class="sidebar-brand-info">
+          <span class="sidebar-brand-name">EMBER &amp; OAK</span>
+          <span class="sidebar-brand-sub">Culinary Console</span>
+        </div>
+      </div>
+      <button class="sidebar-toggle-btn" id="sidebar-toggle-btn">≡</button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <span class="sidebar-section-title">Operations</span>
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon">📊</span>
+        <span>Overview</span>
+      </a>
+      <a href="menu-management.html" class="nav-item">
+        <span class="nav-icon">🍽️</span>
+        <span>Menu Dishes</span>
+      </a>
+      <a href="categories.html" class="nav-item">
+        <span class="nav-icon">📂</span>
+        <span>Categories</span>
+      </a>
+      <a href="orders.html" class="nav-item">
+        <span class="nav-icon">🧾</span>
+        <span>Orders</span>
+        <span class="nav-badge">6</span>
+      </a>
+      <a href="reservations.html" class="nav-item active">
+        <span class="nav-icon">📅</span>
+        <span>Reservations</span>
+      </a>
+
+      <span class="sidebar-section-title" style="margin-top: 12px;">Brand &amp; Digital</span>
+      <a href="qr-management.html" class="nav-item">
+        <span class="nav-icon">📱</span>
+        <span>QR Table Menus</span>
+      </a>
+      <a href="gallery.html" class="nav-item">
+        <span class="nav-icon">🖼️</span>
+        <span>Photo Gallery</span>
+      </a>
+      <a href="website-settings.html" class="nav-item">
+        <span class="nav-icon">⚙️</span>
+        <span>Website Content</span>
+      </a>
+      <a href="reports.html" class="nav-item">
+        <span class="nav-icon">📈</span>
+        <span>Reports &amp; Sales</span>
+      </a>
+
+      <span class="sidebar-section-title" style="margin-top: 12px;">Admin</span>
+      <a href="profile.html" class="nav-item">
+        <span class="nav-icon">👤</span>
+        <span>Manager Profile</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar">AV</div>
+        <div class="sidebar-user-details">
+          <span class="sidebar-user-name" id="admin-user-display-name">Executive Chef Vance</span>
+          <span class="sidebar-user-role">General Manager</span>
+        </div>
+      </div>
+      <button class="sidebar-logout-btn" onclick="AdminAuth.logout()" title="Sign Out">🚪</button>
+    </div>
+  </aside>
+
+  <!-- Main Wrap -->
+  <div class="admin-main-wrap">
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="topbar-mobile-menu-btn" id="topbar-mobile-menu-btn">☰</button>
+        <div class="topbar-breadcrumbs">
+          <a href="index.html">Admin</a>
+          <span>/</span>
+          <strong class="topbar-page-title">Table Reservations</strong>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="restaurant-status-toggle" id="restaurant-status-toggle">
+          <span class="status-indicator-dot"></span>
+          <span id="restaurant-status-text">Kitchen Active • Open</span>
+        </div>
+        <a href="../index.html#reservations" class="view-live-site-btn" target="_blank">
+          <span>Public Booking Form</span>
+          <span class="label-text">↗</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="admin-content">
+      <div class="content-header-row">
+        <div>
+          <h1 class="content-header-title">Guest Reservations &amp; Vault Bookings</h1>
+          <p class="content-header-subtitle">Manage guest party seating, confirmation statuses, special tasting requests, and dining schedules.</p>
+        </div>
+        <div class="content-header-actions">
+          <button id="add-res-btn" class="btn-admin-primary">
+            <span>+ Add Reservation</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Reservations Table Card -->
+      <div class="admin-card">
+        <div class="table-toolbar-row">
+          <div class="table-search-box">
+            <span>🔍</span>
+            <input type="text" id="res-search-input" placeholder="Search guest name, phone, email..." aria-label="Search reservations">
+          </div>
+
+          <div class="table-filter-group">
+            <select id="res-status-filter" class="table-select" aria-label="Filter by reservation status">
+              <option value="all">All Statuses</option>
+              <option value="pending">Pending Only</option>
+              <option value="confirmed">Confirmed Only</option>
+              <option value="seated">Seated Only</option>
+              <option value="completed">Completed Only</option>
+              <option value="cancelled">Cancelled Only</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="padding: 8px 24px; font-size: 0.8rem; color: var(--text-muted); border-bottom: 1px solid var(--admin-border-subtle); display: flex; justify-content: space-between;">
+          <span id="reservations-count-label">Loading reservations...</span>
+          <span style="color: var(--admin-gold);">Bookings made on public website appear here</span>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-data-table">
+            <thead>
+              <tr>
+                <th>Guest &amp; Contact</th>
+                <th>Date &amp; Time</th>
+                <th>Party Size</th>
+                <th>Status</th>
+                <th>Special Requests</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="reservations-table-body">
+              <!-- Rendered via admin-reservations.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="admin-empty-state" id="reservations-empty-state" style="display: none;">
+          <div class="empty-state-icon">📅</div>
+          <h3 class="empty-state-title">No reservations match this filter</h3>
+          <p class="empty-state-desc">Try choosing "All Statuses" or clearing your search filter.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Reservation Modal -->
+  <div class="admin-modal-backdrop" id="reservation-modal">
+    <div class="admin-modal-window" style="max-width: 520px;">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title">Create Table Reservation</h3>
+        <button class="admin-modal-close-btn" id="res-modal-close">✕</button>
+      </div>
+
+      <form id="reservation-form" novalidate>
+        <div class="admin-modal-body">
+          <div class="admin-form-grid">
+            <div class="form-group span-2">
+              <label for="res-form-name" class="form-label">Guest Full Name <span class="req">*</span></label>
+              <input type="text" id="res-form-name" class="form-input" placeholder="Eleanor Vance" required>
+            </div>
+
+            <div class="form-group">
+              <label for="res-form-email" class="form-label">Email Address <span class="req">*</span></label>
+              <input type="email" id="res-form-email" class="form-input" placeholder="eleanor@example.com" required>
+            </div>
+
+            <div class="form-group">
+              <label for="res-form-phone" class="form-label">Phone Number</label>
+              <input type="tel" id="res-form-phone" class="form-input" placeholder="+1 (555) 000-0000">
+            </div>
+
+            <div class="form-group">
+              <label for="res-form-guests" class="form-label">Party Size <span class="req">*</span></label>
+              <select id="res-form-guests" class="form-select">
+                <option value="1">1 Guest (Solo Dining)</option>
+                <option value="2" selected>2 Guests (Intimate Table)</option>
+                <option value="4">4 Guests (Standard Dining)</option>
+                <option value="6">6 Guests (Vault Booth)</option>
+                <option value="8">8 Guests (Chef's Hearth)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="res-form-date" class="form-label">Reservation Date <span class="req">*</span></label>
+              <input type="date" id="res-form-date" class="form-input" required>
+            </div>
+
+            <div class="form-group span-2">
+              <label for="res-form-time" class="form-label">Seating Time <span class="req">*</span></label>
+              <select id="res-form-time" class="form-select">
+                <option value="17:30">5:30 PM (Early Twilight)</option>
+                <option value="18:30">6:30 PM</option>
+                <option value="19:30" selected>7:30 PM (Prime Dinner)</option>
+                <option value="20:30">8:30 PM</option>
+                <option value="21:30">9:30 PM (Late Ember)</option>
+              </select>
+            </div>
+
+            <div class="form-group span-2">
+              <label for="res-form-notes" class="form-label">Dietary Preferences &amp; Special Requests</label>
+              <textarea id="res-form-notes" class="form-textarea" placeholder="e.g. Anniversary celebration, sommelier wine pairing, quiet booth"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-modal-footer">
+          <button type="button" class="btn-admin-secondary" id="res-modal-cancel">Cancel</button>
+          <button type="submit" class="btn-admin-primary">Confirm &amp; Book Table</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/menu-data.js"></script>
+  <script src="../js/admin-auth.js"></script>
+  <script src="../js/admin.js"></script>
+  <script src="../js/admin-reservations.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery Management • EMBER & OAK Admin</title>  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/admin-responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-emblem">EO</div>
+        <div class="sidebar-brand-info">
+          <span class="sidebar-brand-name">EMBER &amp; OAK</span>
+          <span class="sidebar-brand-sub">Culinary Console</span>
+        </div>
+      </div>
+      <button class="sidebar-toggle-btn" id="sidebar-toggle-btn">≡</button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <span class="sidebar-section-title">Operations</span>
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon">📊</span>
+        <span>Overview</span>
+      </a>
+      <a href="menu-management.html" class="nav-item">
+        <span class="nav-icon">🍽️</span>
+        <span>Menu Dishes</span>
+      </a>
+      <a href="categories.html" class="nav-item">
+        <span class="nav-icon">📂</span>
+        <span>Categories</span>
+      </a>
+      <a href="orders.html" class="nav-item">
+        <span class="nav-icon">🧾</span>
+        <span>Orders</span>
+        <span class="nav-badge">6</span>
+      </a>
+      <a href="reservations.html" class="nav-item">
+        <span class="nav-icon">📅</span>
+        <span>Reservations</span>
+      </a>
+
+      <span class="sidebar-section-title" style="margin-top: 12px;">Brand &amp; Digital</span>
+      <a href="qr-management.html" class="nav-item">
+        <span class="nav-icon">📱</span>
+        <span>QR Table Menus</span>
+      </a>
+      <a href="gallery.html" class="nav-item active">
+        <span class="nav-icon">🖼️</span>
+        <span>Photo Gallery</span>
+      </a>
+      <a href="website-settings.html" class="nav-item">
+        <span class="nav-icon">⚙️</span>
+        <span>Website Content</span>
+      </a>
+      <a href="reports.html" class="nav-item">
+        <span class="nav-icon">📈</span>
+        <span>Reports &amp; Sales</span>
+      </a>
+
+      <span class="sidebar-section-title" style="margin-top: 12px;">Admin</span>
+      <a href="profile.html" class="nav-item">
+        <span class="nav-icon">👤</span>
+        <span>Manager Profile</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar">AV</div>
+        <div class="sidebar-user-details">
+          <span class="sidebar-user-name" id="admin-user-display-name">Executive Chef Vance</span>
+          <span class="sidebar-user-role">General Manager</span>
+        </div>
+      </div>
+      <button class="sidebar-logout-btn" onclick="AdminAuth.logout()" title="Sign Out">🚪</button>
+    </div>
+  </aside>
+
+  <!-- Main Wrap -->
+  <div class="admin-main-wrap">
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="topbar-mobile-menu-btn" id="topbar-mobile-menu-btn">☰</button>
+        <div class="topbar-breadcrumbs">
+          <a href="index.html">Admin</a>
+          <span>/</span>
+          <strong class="topbar-page-title">Photo Gallery Management</strong>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="restaurant-status-toggle" id="restaurant-status-toggle">
+          <span class="status-indicator-dot"></span>
+          <span id="restaurant-status-text">Kitchen Active • Open</span>
+        </div>
+        <a href="../index.html#gallery" class="view-live-site-btn" target="_blank">
+          <span>Public Gallery</span>
+          <span class="label-text">↗</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="admin-content">
+      <div class="content-header-row">
+        <div>
+          <h1 class="content-header-title">Restaurant Visual Gallery</h1>
+          <p class="content-header-subtitle">Manage photography, hearth captures, wine cellar visuals, and ambient dining moments shown on the diner homepage.</p>
+        </div>
+        <div class="content-header-actions">
+          <button id="add-gallery-btn" class="btn-admin-primary">
+            <span>+ Add Photo</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="admin-gallery-grid" id="gallery-cards-grid">
+        <!-- Rendered via admin-gallery.js -->
+      </div>
+
+      <div class="admin-empty-state" id="gallery-empty-state" style="display: none;">
+        <div class="empty-state-icon">🖼️</div>
+        <h3 class="empty-state-title">No gallery photos added</h3>
+        <p class="empty-state-desc">Click "+ Add Photo" to showcase your dining room, hearth cooking, or signature wine cellar.</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add / Edit Photo Modal -->
+  <div class="admin-modal-backdrop" id="gallery-modal">
+    <div class="admin-modal-window" style="max-width: 520px;">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="gallery-modal-title">Add Gallery Photo</h3>
+        <button class="admin-modal-close-btn" id="gallery-modal-close">✕</button>
+      </div>
+
+      <form id="gallery-form" novalidate>
+        <div class="admin-modal-body">
+          <input type="hidden" id="gallery-form-id">
+
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label for="gallery-form-title" class="form-label">Photo Title <span class="req">*</span></label>
+            <input type="text" id="gallery-form-title" class="form-input" placeholder="e.g. The Grand Oak Dining Sanctuary" required>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label for="gallery-form-category" class="form-label">Category</label>
+            <select id="gallery-form-category" class="form-select">
+              <option value="interior">Interior &amp; Dining Hall</option>
+              <option value="kitchen">Live Hearth &amp; Kitchen</option>
+              <option value="food">Artisanal Dishes</option>
+              <option value="drinks">Sommelier Cellar &amp; Cocktails</option>
+              <option value="ambiance">Evening Ambiance</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label for="gallery-form-image" class="form-label">Image URL or Local Asset Path <span class="req">*</span></label>
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <input type="text" id="gallery-form-image" class="form-input" placeholder="assets/images/gallery-1.jpg" required>
+              <img id="gallery-img-preview" src="../assets/images/hero-interior.jpg" alt="Preview" style="width: 50px; height: 50px; border-radius: var(--radius-sm); object-fit: cover; border: 1px solid var(--admin-border);">
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label for="gallery-form-alt" class="form-label">Alt Text / Caption (Accessibility)</label>
+            <input type="text" id="gallery-form-alt" class="form-input" placeholder="Descriptive caption for screen readers">
+          </div>
+
+          <div class="form-group">
+            <label class="form-switch-label">
+              <input type="checkbox" id="gallery-form-featured" class="form-switch-input" checked>
+              <span class="form-switch-track"></span>
+              <span>Feature prominently in public homepage gallery</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="admin-modal-footer">
+          <button type="button" class="btn-admin-secondary" id="gallery-modal-cancel">Cancel</button>
+          <button type="submit" class="btn-admin-primary">Save Photograph</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/menu-data.js"></script>
+  <script src="../js/admin-auth.js"></script>
+  <script src="../js/admin.js"></script>
+  <script src="../js/admin-gallery.js"></script>
+</body>
+</html>
+

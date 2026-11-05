@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login • EMBER & OAK Management Console</title>  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/admin-responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+  <div class="admin-login-layout" style="width: 100vw; min-height: 100vh;">
+    <!-- Left Atmospheric Cinematic Column -->
+    <div class="admin-login-hero-col">
+      <img class="admin-login-hero-img" src="../assets/images/hero-interior.jpg" alt="Ember &amp; Oak Dining Hall Ambiance">
+      <div class="admin-login-hero-overlay"></div>
+      <div class="admin-login-hero-content">
+        <div style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px;">
+          <span style="width: 10px; height: 10px; border-radius: 50%; background: var(--admin-gold);"></span>
+          <span style="font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--admin-gold-light);">Culinary Operations Console</span>
+        </div>
+        <blockquote class="admin-login-hero-quote">
+          “Live fire cooking is a devotion to seasoned white oak, time, and the quiet dignity of ingredients.”
+        </blockquote>
+        <div class="admin-login-hero-caption">— Alexander Vance, Executive Chef &amp; Founder</div>
+      </div>
+    </div>
+
+    <!-- Right Login Form Column -->
+    <div class="admin-login-form-col">
+      <div class="admin-login-box">
+        <div class="login-brand-header">
+          <div class="login-logo-emblem">EO</div>
+          <h1 class="login-brand-title">EMBER &amp; OAK</h1>
+          <p class="login-brand-subtitle">Restaurant Management &amp; Digital Menu Console</p>
+        </div>
+
+        <!-- Clearly Documented Demo Credentials Card -->
+        <div class="demo-credentials-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <strong>Demo Credentials (Frontend Simulation)</strong>
+            <button type="button" id="fill-demo-btn" style="font-size: 0.75rem; color: var(--admin-gold); text-decoration: underline; cursor: pointer;">Auto-Fill</button>
+          </div>
+          <div>Email: <code>admin@emberandoak.com</code></div>
+          <div>Password: <code>ember123</code></div>
+        </div>
+
+        <div id="login-error-alert" style="display: none; background: #fdf2f2; border: 1px solid #f8b4b4; color: #c0392b; padding: 10px 14px; border-radius: var(--radius-md); font-size: 0.85rem; margin-bottom: 18px;"></div>
+
+        <form id="admin-login-form" novalidate>
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label for="login-email" class="form-label">Manager Email <span class="req">*</span></label>
+            <input type="email" id="login-email" class="form-input" placeholder="admin@emberandoak.com" required autocomplete="username">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label for="login-password" class="form-label">Password <span class="req">*</span></label>
+              <button type="button" id="toggle-password-btn" style="font-size: 0.8rem; color: var(--text-muted); cursor: pointer;" aria-label="Toggle password visibility">👁️</button>
+            </div>
+            <input type="password" id="login-password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; font-size: 0.84rem;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--text-body);">
+              <input type="checkbox" id="login-remember" style="accent-color: var(--admin-gold);">
+              <span>Remember this session</span>
+            </label>
+            <a href="../index.html" style="color: var(--admin-gold); text-decoration: underline;">Return to Diner Site ↗</a>
+          </div>
+
+          <button type="submit" id="login-submit-btn" class="btn-admin-primary" style="width: 100%; justify-content: center; padding: 12px;">
+            <span>Sign In to Dashboard</span>
+            <span>→</span>
+          </button>
+        </form>
+
+        <div style="margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--admin-border-subtle); font-size: 0.72rem; color: var(--text-muted); line-height: 1.5; text-align: center;">
+          <strong>Security Notice:</strong> Client-side authentication is provided for static hosting demonstration purposes. Production restaurant deployments require server-side token validation and secure HTTP cookies.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/admin-auth.js"></script>
+  <script>
+    // Helper to auto-fill demo credentials
+    document.getElementById('fill-demo-btn').addEventListener('click', () => {
+      document.getElementById('login-email').value = 'admin@emberandoak.com';
+      document.getElementById('login-password').value = 'ember123';
+    });
+  </script>
+</body>
+</html>
+

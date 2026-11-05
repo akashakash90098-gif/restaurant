@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Management • EMBER & OAK Admin</title>  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/admin-responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    .order-status-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .order-status-tab {
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-body);
+      background: var(--admin-surface);
+      border: 1px solid var(--admin-border);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .order-status-tab:hover {
+      background: var(--admin-surface-muted);
+    }
+    .order-status-tab.active {
+      background: var(--admin-gold);
+      color: #120e0c;
+      border-color: var(--admin-gold);
+    }
+  </style>
+</head>
+<body class="admin-body">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-emblem">EO</div>
+        <div class="sidebar-brand-info">
+          <span class="sidebar-brand-name">EMBER &amp; OAK</span>
+          <span class="sidebar-brand-sub">Culinary Console</span>
+        </div>
+      </div>
+      <button class="sidebar-toggle-btn" id="sidebar-toggle-btn">≡</button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <span class="sidebar-section-title">Operations</span>
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon">📊</span>
+        <span>Overview</span>
+      </a>
+      <a href="menu-management.html" class="nav-item">
+        <span class="nav-icon">🍽️</span>
+        <span>Menu Dishes</span>
+      </a>
+      <a href="categories.html" class="nav-item">
+        <span class="nav-icon">📂</span>
+        <span>Categories</span>
+      </a>
+      <a href="orders.html" class="nav-item active">
+        <span class="nav-icon">🧾</span>
+        <span>Orders</span>
+        <span class="nav-badge">6</span>
+      </a>
+      <a href="reservations.html" class="nav-item">
+        <span class="nav-icon">📅</span>
+        <span>Reservations</span>
+      </a>
+
+      <span class="sidebar-section-title" style="margin-top: 12px;">Brand &amp; Digital</span>
+      <a href="qr-management.html" class="nav-item">
+        <span class="nav-icon">📱</span>
+        <span>QR Table Menus</span>
+      </a>
+      <a href="gallery.html" class="nav-item">
+        <span class="nav-icon">🖼️</span>
+        <span>Photo Gallery</span>
+      </a>
+      <a href="website-settings.html" class="nav-item">
+        <span class="nav-icon">⚙️</span>
+        <span>Website Content</span>
+      </a>
+      <a href="reports.html" class="nav-item">
+        <span class="nav-icon">📈</span>
+        <span>Reports &amp; Sales</span>
+      </a>
+
+      <span class="sidebar-section-title" style="margin-top: 12px;">Admin</span>
+      <a href="profile.html" class="nav-item">
+        <span class="nav-icon">👤</span>
+        <span>Manager Profile</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar">AV</div>
+        <div class="sidebar-user-details">
+          <span class="sidebar-user-name" id="admin-user-display-name">Executive Chef Vance</span>
+          <span class="sidebar-user-role">General Manager</span>
+        </div>
+      </div>
+      <button class="sidebar-logout-btn" onclick="AdminAuth.logout()" title="Sign Out">🚪</button>
+    </div>
+  </aside>
+
+  <!-- Main Wrap -->
+  <div class="admin-main-wrap">
+    <!-- Topbar -->
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="topbar-mobile-menu-btn" id="topbar-mobile-menu-btn">☰</button>
+        <div class="topbar-breadcrumbs">
+          <a href="index.html">Admin</a>
+          <span>/</span>
+          <strong class="topbar-page-title">Live Dining Orders</strong>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="restaurant-status-toggle" id="restaurant-status-toggle">
+          <span class="status-indicator-dot"></span>
+          <span id="restaurant-status-text">Kitchen Active • Open</span>
+        </div>
+        <a href="../menu.html" class="view-live-site-btn" target="_blank">
+          <span>Customer Menu</span>
+          <span class="label-text">↗</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <main class="admin-content">
+      <div class="content-header-row">
+        <div>
+          <h1 class="content-header-title">Live Kitchen &amp; Table Orders</h1>
+          <p class="content-header-subtitle">Inspect diner orders, advance kitchen preparation stages, view receipts, and monitor table delivery.</p>
+        </div>
+      </div>
+
+      <!-- Status Tabs Bar -->
+      <div class="order-status-tabs" style="margin-bottom: 20px;">
+        <button class="order-status-tab active" data-status="all">All Orders</button>
+        <button class="order-status-tab" data-status="new">New (Unconfirmed)</button>
+        <button class="order-status-tab" data-status="accepted">Accepted</button>
+        <button class="order-status-tab" data-status="preparing">In Kitchen Prep</button>
+        <button class="order-status-tab" data-status="ready">Ready to Serve</button>
+        <button class="order-status-tab" data-status="completed">Completed</button>
+        <button class="order-status-tab" data-status="cancelled">Cancelled</button>
+      </div>
+
+      <!-- Orders Card -->
+      <div class="admin-card">
+        <div class="table-toolbar-row">
+          <div class="table-search-box">
+            <span>🔍</span>
+            <input type="text" id="orders-search-input" placeholder="Search order ID, table T01, Wagyu..." aria-label="Search orders">
+          </div>
+          <span id="orders-count-label" style="font-size: 0.85rem; color: var(--text-muted);">Loading orders...</span>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-data-table">
+            <thead>
+              <tr>
+                <th>Order ID &amp; Time</th>
+                <th>Table</th>
+                <th>Items Ordered</th>
+                <th>Total &amp; Payment</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="orders-table-body">
+              <!-- Rendered via admin-orders.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="admin-empty-state" id="orders-empty-state" style="display: none;">
+          <div class="empty-state-icon">🧾</div>
+          <h3 class="empty-state-title">No orders match this filter</h3>
+          <p class="empty-state-desc">Select "All Orders" or search with a different query.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Order Detail & Kitchen Ticket Modal -->
+  <div class="admin-modal-backdrop" id="order-detail-modal">
+    <div class="admin-modal-window" style="max-width: 580px;">
+      <div class="admin-modal-header">
+        <div>
+          <h3 class="admin-modal-title" style="display: flex; align-items: center; gap: 10px;">
+            <span id="modal-order-id">ORD-1081</span>
+            <span class="badge-status" id="modal-order-status-badge">New</span>
+          </h3>
+          <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">
+            Submitted: <span id="modal-order-time">2026-11-04 13:45</span> • <span id="modal-order-table">Table T02</span>
+          </div>
+        </div>
+        <button class="admin-modal-close-btn" id="order-modal-close">✕</button>
+      </div>
+
+      <div class="admin-modal-body">
+        <!-- Status Action Buttons -->
+        <div style="background: var(--admin-surface-muted); padding: 14px; border-radius: var(--radius-md); margin-bottom: 20px; border: 1px solid var(--admin-border-subtle);">
+          <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted); margin-bottom: 8px;">
+            Update Kitchen Workflow Status:
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <button class="btn-admin-secondary" style="font-size: 0.8rem; padding: 6px 12px;" onclick="AdminOrders.updateOrderStatus('accepted')">✓ Accept</button>
+            <button class="btn-admin-secondary" style="font-size: 0.8rem; padding: 6px 12px;" onclick="AdminOrders.updateOrderStatus('preparing')">🔥 Start Prep</button>
+            <button class="btn-admin-secondary" style="font-size: 0.8rem; padding: 6px 12px;" onclick="AdminOrders.updateOrderStatus('ready')">🔔 Mark Ready</button>
+            <button class="btn-admin-primary" style="font-size: 0.8rem; padding: 6px 14px;" onclick="AdminOrders.updateOrderStatus('completed')">★ Complete</button>
+            <button class="btn-admin-danger" style="font-size: 0.8rem; padding: 6px 12px; margin-left: auto;" onclick="AdminOrders.updateOrderStatus('cancelled')">Cancel</button>
+          </div>
+        </div>
+
+        <!-- Line Items -->
+        <div style="margin-bottom: 20px;">
+          <h4 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 10px;">
+            Items Ordered
+          </h4>
+          <div id="modal-order-items-list">
+            <!-- Populated via admin-orders.js -->
+          </div>
+        </div>
+
+        <!-- Financial Summary -->
+        <div style="background: #faf8f4; border: 1px solid var(--admin-border-subtle); border-radius: var(--radius-md); padding: 14px; margin-bottom: 20px;">
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
+            <span>Subtotal:</span>
+            <strong id="modal-order-subtotal">$0.00</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
+            <span>Tax (8.25%):</span>
+            <span id="modal-order-tax">$0.00</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 8px;">
+            <span>Kitchen Craft Fee (5%):</span>
+            <span id="modal-order-fee">$0.00</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 1.15rem; font-weight: 700; color: var(--text-dark); border-top: 1px solid var(--admin-border); padding-top: 8px;">
+            <span>Total:</span>
+            <span id="modal-order-total" style="color: var(--admin-gold);">$0.00</span>
+          </div>
+        </div>
+
+        <!-- Payment & Special Notes -->
+        <div style="font-size: 0.84rem; display: flex; flex-direction: column; gap: 8px;">
+          <div><strong>Payment:</strong> <span id="modal-order-pay-status">Paid</span> via <span id="modal-order-pay-method">Card</span></div>
+          <div><strong>Special Instructions:</strong> <span id="modal-order-notes" style="color: var(--text-body);">None</span></div>
+        </div>
+      </div>
+
+      <div class="admin-modal-footer">
+        <button type="button" class="btn-admin-secondary" id="order-print-btn">🖨️ Print Kitchen Ticket</button>
+        <button type="button" class="btn-admin-primary" id="order-modal-close-btn">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/menu-data.js"></script>
+  <script src="../js/admin-auth.js"></script>
+  <script src="../js/admin.js"></script>
+  <script src="../js/admin-orders.js"></script>
+</body>
+</html>
+

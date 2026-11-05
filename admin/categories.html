@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Category Management • EMBER & OAK Admin</title>  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/admin-responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-emblem">EO</div>
+        <div class="sidebar-brand-info">
+          <span class="sidebar-brand-name">EMBER &amp; OAK</span>
+          <span class="sidebar-brand-sub">Culinary Console</span>
+        </div>
+      </div>
+      <button class="sidebar-toggle-btn" id="sidebar-toggle-btn">≡</button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <span class="sidebar-section-title">Operations</span>
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon">📊</span>
+        <span>Overview</span>
+      </a>
+      <a href="menu-management.html" class="nav-item">
+        <span class="nav-icon">🍽️</span>
+        <span>Menu Dishes</span>
+      </a>
+      <a href="categories.html" class="nav-item active">
+        <span class="nav-icon">📂</span>
+        <span>Categories</span>
+      </a>
+      <a href="orders.html" class="nav-item">
+        <span class="nav-icon">🧾</span>
+        <span>Orders</span>
+        <span class="nav-badge">6</span>
+      </a>
+      <a href="reservations.html" class="nav-item">
+        <span class="nav-icon">📅</span>
+        <span>Reservations</span>
+      </a>
+
+      <span class="sidebar-section-title" style="margin-top: 12px;">Brand &amp; Digital</span>
+      <a href="qr-management.html" class="nav-item">
+        <span class="nav-icon">📱</span>
+        <span>QR Table Menus</span>
+      </a>
+      <a href="gallery.html" class="nav-item">
+        <span class="nav-icon">🖼️</span>
+        <span>Photo Gallery</span>
+      </a>
+      <a href="website-settings.html" class="nav-item">
+        <span class="nav-icon">⚙️</span>
+        <span>Website Content</span>
+      </a>
+      <a href="reports.html" class="nav-item">
+        <span class="nav-icon">📈</span>
+        <span>Reports &amp; Sales</span>
+      </a>
+
+      <span class="sidebar-section-title" style="margin-top: 12px;">Admin</span>
+      <a href="profile.html" class="nav-item">
+        <span class="nav-icon">👤</span>
+        <span>Manager Profile</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar">AV</div>
+        <div class="sidebar-user-details">
+          <span class="sidebar-user-name" id="admin-user-display-name">Executive Chef Vance</span>
+          <span class="sidebar-user-role">General Manager</span>
+        </div>
+      </div>
+      <button class="sidebar-logout-btn" onclick="AdminAuth.logout()" title="Sign Out">🚪</button>
+    </div>
+  </aside>
+
+  <!-- Main Wrap -->
+  <div class="admin-main-wrap">
+    <!-- Topbar -->
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="topbar-mobile-menu-btn" id="topbar-mobile-menu-btn">☰</button>
+        <div class="topbar-breadcrumbs">
+          <a href="index.html">Admin</a>
+          <span>/</span>
+          <strong class="topbar-page-title">Category Management</strong>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="restaurant-status-toggle" id="restaurant-status-toggle">
+          <span class="status-indicator-dot"></span>
+          <span id="restaurant-status-text">Kitchen Active • Open</span>
+        </div>
+        <a href="../menu.html" class="view-live-site-btn" target="_blank">
+          <span>Customer Menu</span>
+          <span class="label-text">↗</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <main class="admin-content">
+      <div class="content-header-row">
+        <div>
+          <h1 class="content-header-title">Menu Categories</h1>
+          <p class="content-header-subtitle">Manage culinary departments, icons, ordering, and filter tags for the digital menu.</p>
+        </div>
+        <div class="content-header-actions">
+          <button id="add-cat-btn" class="btn-admin-primary">
+            <span>+ Add Category</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Categories Table Card -->
+      <div class="admin-card">
+        <div class="admin-table-wrap">
+          <table class="admin-data-table">
+            <thead>
+              <tr>
+                <th style="width: 70px;">Order</th>
+                <th>Category Name</th>
+                <th>Description</th>
+                <th>Assigned Dishes</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="categories-table-body">
+              <!-- Rendered via admin-categories.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add / Edit Category Modal -->
+  <div class="admin-modal-backdrop" id="category-modal">
+    <div class="admin-modal-window" style="max-width: 500px;">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="category-modal-title">Add Category</h3>
+        <button class="admin-modal-close-btn" id="category-modal-close">✕</button>
+      </div>
+
+      <form id="category-form" novalidate>
+        <div class="admin-modal-body">
+          <input type="hidden" id="cat-form-id">
+
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label for="cat-form-name" class="form-label">Category Name <span class="req">*</span></label>
+            <input type="text" id="cat-form-name" class="form-input" placeholder="e.g. Wood-Fired Pizza" required>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label for="cat-form-icon" class="form-label">Icon / Emoji</label>
+            <input type="text" id="cat-form-icon" class="form-input" placeholder="🍕" style="font-size: 1.2rem;">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label for="cat-form-desc" class="form-label">Description</label>
+            <textarea id="cat-form-desc" class="form-textarea" placeholder="Short description of this culinary section"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-switch-label">
+              <input type="checkbox" id="cat-form-active" class="form-switch-input" checked>
+              <span class="form-switch-track"></span>
+              <span>Active in public customer menu filters</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="admin-modal-footer">
+          <button type="button" class="btn-admin-secondary" id="category-modal-cancel">Cancel</button>
+          <button type="submit" class="btn-admin-primary">Save Category</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/menu-data.js"></script>
+  <script src="../js/admin-auth.js"></script>
+  <script src="../js/admin.js"></script>
+  <script src="../js/admin-categories.js"></script>
+</body>
+</html>
+
