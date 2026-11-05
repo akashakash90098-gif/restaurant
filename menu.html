@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Digital Dining Menu — EMBER &amp; OAK</title>
+  <meta name="description" content="Mobile digital table menu for Ember &amp; Oak. Browse starters, flame-seared burgers, wood-fired mains, and order directly from your phone.">
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    /* Dedicated Mobile-First Styling for QR Menu page */
+    body.mobile-menu-page {
+      background-color: #120e0c;
+      padding-bottom: 90px; /* Space for sticky cart footer */
+    }
+
+    .mobile-menu-header {
+      position: sticky;
+      top: 0;
+      background: rgba(18, 14, 12, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-gold);
+      padding: 14px 20px;
+      z-index: 800;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mobile-menu-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mobile-menu-brand .brand-emblem {
+      width: 32px;
+      height: 32px;
+      font-size: 0.95rem;
+    }
+
+    .mobile-menu-brand-text h1 {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      color: #ffffff;
+      line-height: 1.1;
+      margin: 0;
+    }
+
+    .mobile-menu-brand-text span {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+    }
+
+    /* Table Welcome Banner */
+    .table-welcome-banner {
+      background: linear-gradient(135deg, rgba(38, 30, 26, 0.8), rgba(22, 18, 16, 0.9));
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-info-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .table-badge-large {
+      background: rgba(226, 141, 56, 0.2);
+      border: 1px solid var(--amber-glow);
+      color: var(--amber-glow);
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.05em;
+    }
+
+    .table-welcome-text {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .main-site-return-link {
+      font-size: 0.78rem;
+      color: var(--gold-light);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Mobile Search Container */
+    .mobile-search-section {
+      padding: 16px 20px 8px;
+    }
+
+    /* Menu Container adjustments for smartphone view */
+    .mobile-menu-container {
+      padding: 0 16px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .mobile-menu-page .menu-categories-carousel {
+      margin-bottom: 24px;
+      padding-top: 10px;
+    }
+  </style>
+</head>
+<body class="mobile-menu-page">
+
+  <!-- Mobile Menu Top Header -->
+  <header class="mobile-menu-header">
+    <a href="index.html" class="mobile-menu-brand" aria-label="Ember &amp; Oak Home">
+      <div class="brand-emblem">&amp;</div>
+      <div class="mobile-menu-brand-text">
+        <h1>EMBER &amp; OAK</h1>
+        <span>Digital Table Menu</span>
+      </div>
+    </a>
+
+    <!-- Cart Button Right -->
+    <button class="cart-toggle-btn" aria-label="Open Order Cart">
+      <svg class="cart-icon-svg" viewBox="0 0 24 24">
+        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+      </svg>
+      <span>Cart</span>
+      <span class="cart-count-badge">0</span>
+    </button>
+  </header>
+
+  <!-- Table Welcome Banner -->
+  <div class="table-welcome-banner">
+    <div class="table-info-wrap">
+      <span class="table-indicator-pill" style="display: none;"></span>
+      <span class="table-welcome-text">Contact-free tableside ordering active</span>
+    </div>
+    <a href="index.html" class="main-site-return-link">Full Website ↗</a>
+  </div>
+
+  <!-- Search & Dietary Filters Section -->
+  <div class="mobile-search-section">
+    <div class="menu-search-box" style="max-width: 100%;">
+      <span class="menu-search-icon">🔍</span>
+      <input type="text" id="menu-search-input" class="menu-search-input" placeholder="Search dishes, ingredients, dietary..." aria-label="Search menu">
+      <button id="menu-clear-search-btn" class="menu-clear-search-btn" aria-label="Clear search">✕</button>
+    </div>
+
+    <div class="dietary-filters-group" style="margin-top: 12px; overflow-x: auto; padding-bottom: 4px;">
+      <label class="dietary-toggle-label">
+        <input type="checkbox" id="filter-veg-checkbox">
+        <span>🌱 Vegetarian</span>
+      </label>
+      <label class="dietary-toggle-label">
+        <input type="checkbox" id="filter-gf-checkbox">
+        <span>🌾 Gluten-Free</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="mobile-menu-container">
+    <!-- Category Horizontal Carousel -->
+    <div id="menu-category-pills" class="menu-categories-carousel" role="tablist" aria-label="Menu Categories"></div>
+
+    <!-- Dishes Grid -->
+    <div id="menu-grid-container" class="menu-grid"></div>
+
+    <!-- Empty Results State -->
+    <div id="menu-empty-state" class="menu-empty-state">
+      <div class="empty-state-icon">🍽️</div>
+      <h3 class="empty-state-title">No Dishes Matched</h3>
+      <p class="empty-state-text">Try adjusting your search query or toggling dietary preferences.</p>
+      <button id="menu-reset-filters-btn" class="btn-primary-gold">Reset Filters</button>
+    </div>
+
+    <!-- Mobile Footer Navigation -->
+    <footer style="text-align: center; padding: 28px 20px 48px; font-size: 0.78rem; color: #888;">
+      <div>EMBER &amp; OAK — Modern Dining</div>
+      <div style="margin-top: 8px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+        <a href="index.html" style="color: var(--gold-primary);">Diner Homepage</a>
+        <span>•</span>
+        <a href="qr-menu.html" style="color: var(--gold-primary);">Table QR Hub</a>
+        <span>•</span>
+        <a href="admin/login.html" style="color: var(--gold-primary);">Manager Console 🔒</a>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ==================== MOBILE PERSISTENT FLOATING CART BAR ==================== -->
+  <div id="mobile-cart-float-bar" class="mobile-cart-float-bar" aria-live="polite">
+    <div class="float-bar-info">
+      <span class="float-count">0 items</span>
+      <span class="float-total">$0.00</span>
+    </div>
+    <button class="float-view-order-btn cart-toggle-btn" aria-label="View Order">
+      <span>Review Order</span>
+      <span>→</span>
+    </button>
+  </div>
+
+  <!-- ==================== DISH DETAIL MODAL ==================== -->
+  <div id="dish-detail-modal" class="dish-detail-modal" role="dialog" aria-modal="true" aria-labelledby="modal-dish-title">
+    <div id="dish-modal-overlay" class="modal-backdrop"></div>
+    <div class="modal-card">
+      <button id="dish-modal-close" class="modal-close-btn" aria-label="Close dish modal">✕</button>
+
+      <div class="modal-img-col">
+        <img id="modal-dish-img" class="modal-dish-img" src="" alt="Dish Details" loading="lazy">
+      </div>
+
+      <div class="modal-body-col">
+        <div id="modal-dish-badges" class="modal-badges-row"></div>
+        <h3 id="modal-dish-title" class="modal-title">Dish Title</h3>
+        
+        <div class="modal-price-rating-row">
+          <div id="modal-dish-price" class="modal-price">$0.00</div>
+          <div id="modal-dish-rating" class="modal-rating">★ 4.9</div>
+        </div>
+
+        <p id="modal-dish-desc" class="modal-desc">Detailed dish preparation and culinary backstory.</p>
+
+        <div class="modal-meta-chips">
+          <div>Calories: <strong id="modal-dish-cals">780 kcal</strong></div>
+          <div>Kitchen Prep: <strong id="modal-dish-prep">15 mins</strong></div>
+        </div>
+
+        <div class="modal-ingredients-wrap">
+          <span class="modal-section-label">Key Ingredients</span>
+          <div id="modal-dish-ingredients" class="modal-ing-tags"></div>
+        </div>
+
+        <div id="modal-dish-addons-wrap" class="modal-addons-wrap">
+          <span class="modal-section-label">Artisanal Add-ons &amp; Pairings</span>
+          <div id="modal-dish-addons-list" class="modal-addons-list"></div>
+        </div>
+
+        <div class="modal-notes-wrap">
+          <span class="modal-section-label">Special Kitchen Instructions</span>
+          <input type="text" id="modal-special-notes" class="modal-notes-input" placeholder="e.g. Extra sauce, allergy note...">
+        </div>
+
+        <div class="modal-actions-row">
+          <div class="modal-qty-ctrl">
+            <button id="modal-qty-minus" class="modal-qty-btn" aria-label="Decrease quantity">−</button>
+            <span id="modal-qty-val" class="modal-qty-val">1</span>
+            <button id="modal-qty-plus" class="modal-qty-btn" aria-label="Increase quantity">+</button>
+          </div>
+
+          <button id="modal-add-to-cart-btn" class="modal-add-to-cart-btn">
+            <span>Add to Order</span>
+            <strong>$0.00</strong>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== CART DRAWER ==================== -->
+  <div id="cart-overlay" class="cart-drawer-overlay"></div>
+  <aside id="cart-drawer" class="cart-drawer" role="dialog" aria-modal="true" aria-label="Order Cart">
+    <div class="cart-drawer-header">
+      <div class="cart-drawer-title-wrap">
+        <h3 class="cart-drawer-title">Table Order</h3>
+        <span class="table-indicator-pill" style="display: none;"></span>
+      </div>
+      <button id="cart-drawer-close" class="cart-drawer-close-btn" aria-label="Close cart">✕</button>
+    </div>
+
+    <div id="cart-items-container" class="cart-drawer-items-list"></div>
+
+    <div id="cart-empty-state" class="cart-empty-state">
+      <div class="cart-empty-icon">🍽️</div>
+      <h4>Your Order Is Empty</h4>
+      <p>Tap "+ Add" on any dish to begin building your table order.</p>
+    </div>
+
+    <div id="cart-drawer-footer" class="cart-drawer-footer" style="display: none;">
+      <div class="cart-summary-row">
+        <span>Subtotal</span>
+        <span id="cart-subtotal">$0.00</span>
+      </div>
+      <div class="cart-summary-row">
+        <span>Sales Tax (8.25%)</span>
+        <span id="cart-tax">$0.00</span>
+      </div>
+      <div class="cart-summary-row">
+        <span>Kitchen Craft (5%)</span>
+        <span id="cart-service">$0.00</span>
+      </div>
+      <div class="cart-summary-row total-row">
+        <span>Grand Total</span>
+        <span id="cart-total">$0.00</span>
+      </div>
+
+      <button id="cart-checkout-btn" class="cart-checkout-btn">
+        Transmit Table Order ↗
+      </button>
+    </div>
+  </aside>
+
+  <!-- ==================== DEMO CHECKOUT MODAL ==================== -->
+  <div id="checkout-demo-modal" class="checkout-demo-modal" role="dialog" aria-modal="true">
+    <div class="demo-modal-card">
+      <div class="demo-modal-header">
+        <div class="demo-modal-icon">🧾</div>
+        <h3>Review Table Order</h3>
+      </div>
+
+      <div id="demo-order-summary"></div>
+
+      <div class="demo-modal-disclaimer">
+        <strong>⚡ Frontend Architecture Notice:</strong>
+        This is a complete static frontend demonstration. In production, this order transmits directly to your restaurant POS or kitchen receipt printer.
+      </div>
+
+      <div class="demo-modal-actions">
+        <button id="checkout-modal-close" class="demo-btn-secondary">Back to Order</button>
+        <button id="checkout-modal-done-btn" class="demo-btn-primary">Confirm Review</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/menu-data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/menu.js"></script>
+</body>
+</html>
+

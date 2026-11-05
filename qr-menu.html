@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Digital Menu Generator &amp; Table Tent Hub — EMBER &amp; OAK</title>
+  <meta name="description" content="Generate high-resolution, print-ready table QR codes and configure public URLs for Ember &amp; Oak modern dining.">
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    /* Dedicated Styling for QR Management Dashboard */
+    body.qr-hub-page {
+      background-color: #0c0908;
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    .qr-hub-header {
+      background: rgba(18, 14, 12, 0.94);
+      border-bottom: 1px solid var(--border-gold);
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 500;
+    }
+
+    .qr-hub-nav-links {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .qr-hub-dashboard {
+      max-width: 1300px;
+      margin: 40px auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    .qr-dashboard-controls-card {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .qr-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .qr-panel-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      color: #ffffff;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .qr-panel-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .qr-url-preset-btns {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .qr-preset-btn {
+      font-size: 0.76rem;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--gold-light);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .qr-preset-btn:hover {
+      background: rgba(212, 175, 55, 0.2);
+      border-color: var(--gold-primary);
+    }
+
+    /* Table Selection Pills Grid */
+    .table-buttons-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .table-select-btn {
+      padding: 10px 4px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .table-select-btn:hover {
+      border-color: var(--gold-primary);
+      color: #ffffff;
+    }
+
+    .table-select-btn.active {
+      background: var(--gold-primary);
+      color: #120e0c;
+      border-color: var(--gold-primary);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+    }
+
+    /* URL Display Box */
+    .qr-url-display-box {
+      background: rgba(14, 11, 10, 0.85);
+      border: 1px dashed var(--border-gold);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      word-break: break-all;
+      font-family: monospace;
+      font-size: 0.88rem;
+      color: var(--amber-glow);
+      margin-bottom: 14px;
+    }
+
+    .qr-action-buttons-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .qr-action-btn {
+      flex: 1;
+      padding: 14px 20px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      border-radius: var(--radius-pill);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all var(--transition-fast);
+    }
+
+    .qr-action-btn.primary {
+      background: linear-gradient(135deg, var(--gold-primary), var(--amber-glow));
+      color: #120e0c;
+    }
+
+    .qr-action-btn.primary:hover {
+      filter: brightness(1.12);
+      transform: translateY(-2px);
+    }
+
+    .qr-action-btn.secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+    }
+
+    .qr-action-btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(-2px);
+    }
+
+    /* Right Preview Column */
+    .qr-preview-col {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      position: sticky;
+      top: 100px;
+    }
+
+    /* Table Tent Card Screen Mockup */
+    .table-tent-printable-card {
+      background: #ffffff;
+      color: #1a1614;
+      border: 2px solid var(--gold-primary);
+      border-radius: 12px;
+      padding: 36px 28px;
+      text-align: center;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .tent-header-brand {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #161210;
+      letter-spacing: 0.08em;
+      margin-bottom: 2px;
+    }
+
+    .tent-header-sub {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #8c7d75;
+      margin-bottom: 20px;
+    }
+
+    .tent-table-badge {
+      display: inline-block;
+      background: #161210;
+      color: #ffffff;
+      padding: 6px 20px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+
+    .tent-qr-box {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tent-qr-box canvas, .tent-qr-box img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .tent-scan-instruction {
+      font-size: 0.88rem;
+      color: #4a4039;
+      line-height: 1.45;
+      margin-bottom: 16px;
+      max-width: 280px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .tent-wifi-box {
+      border-top: 1px dashed #d1c7bd;
+      padding-top: 12px;
+      font-size: 0.78rem;
+      color: #776e65;
+    }
+
+    .tent-wifi-box strong {
+      color: #161210;
+    }
+
+    @media (max-width: 992px) {
+      .qr-hub-dashboard {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 24px 20px;
+      }
+      .qr-preview-col {
+        position: static;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .table-buttons-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .qr-hub-header {
+        flex-direction: column;
+        gap: 14px;
+        align-items: flex-start;
+        padding: 14px 16px;
+      }
+      .qr-hub-nav-links {
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .qr-hub-nav-links a {
+        flex: 1;
+        text-align: center;
+        padding: 8px 12px !important;
+      }
+      .table-tent-printable-card {
+        width: 100%;
+        max-width: 100%;
+        padding: 24px 16px;
+      }
+      .qr-dashboard-controls-card {
+        padding: 24px 16px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .table-buttons-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .qr-url-preset-btns {
+        flex-direction: column;
+      }
+      .qr-action-buttons-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body class="qr-hub-page">
+
+  <!-- Header -->
+  <header class="qr-hub-header">
+    <a href="index.html" class="brand-logo-link" aria-label="Ember &amp; Oak Home">
+      <div class="brand-emblem">&amp;</div>
+      <div class="brand-text-block">
+        <span class="brand-name">EMBER &amp; OAK</span>
+        <span class="brand-tagline-sub">Table Tent QR Generator</span>
+      </div>
+    </a>
+
+    <div class="qr-hub-nav-links">
+      <a href="admin/login.html" class="btn-outline-glass" style="font-size: 0.82rem; padding: 8px 18px;">
+        🔒 Admin Dashboard
+      </a>
+      <a href="menu.html" class="btn-outline-glass" style="font-size: 0.82rem; padding: 8px 18px;">
+        📱 Open Mobile Menu
+      </a>
+      <a href="index.html" class="btn-primary-gold" style="font-size: 0.82rem; padding: 8px 18px;">
+        ← Back to Restaurant
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Dashboard -->
+  <main class="qr-hub-dashboard">
+    <!-- Left Column: Settings & Controls -->
+    <div class="qr-dashboard-controls-card">
+      
+      <!-- Panel 1: Public Base URL Configuration -->
+      <section class="qr-panel" aria-labelledby="url-config-heading">
+        <h2 id="url-config-heading" class="qr-panel-title">
+          <span>🌐</span> 1. Configure Public Production URL
+        </h2>
+        <p class="qr-panel-desc">
+          The QR code must encode your deployed HTTPS public URL (not <code>localhost</code> or a local file path), ensuring guests' smartphones open the menu smoothly upon scanning.
+        </p>
+
+        <label for="qr-base-url-input" class="form-label">Base URL (Points to <code>menu.html</code>):</label>
+        <input type="url" id="qr-base-url-input" class="form-input" placeholder="https://your-domain.com/menu.html">
+
+        <div id="qr-url-validation-warning" style="display: none; margin-top: 10px; color: #ff7675; font-size: 0.82rem;">
+          ⚠️ Please provide a valid HTTP or HTTPS URL.
+        </div>
+
+        <div class="qr-url-preset-btns">
+          <button id="qr-use-local-url" class="qr-preset-btn">
+            ⚡ Use Active Host / Local Menu URL (Recommended)
+          </button>
+          <button id="qr-use-prod-url" class="qr-preset-btn">
+            🌐 Custom Production Domain...
+          </button>
+        </div>
+      </section>
+
+      <!-- Panel 2: Table Selection -->
+      <section class="qr-panel" aria-labelledby="table-select-heading">
+        <h2 id="table-select-heading" class="qr-panel-title">
+          <span>📍</span> 2. Select Dining Table Identifier
+        </h2>
+        <p class="qr-panel-desc">
+          When guests scan this table's QR code, their digital menu automatically tags their table number so your staff knows exactly where to deliver orders.
+        </p>
+
+        <div class="table-buttons-grid">
+          <button class="table-select-btn" data-table="NONE">General</button>
+          <button class="table-select-btn active" data-table="T01">Table 01</button>
+          <button class="table-select-btn" data-table="T02">Table 02</button>
+          <button class="table-select-btn" data-table="T03">Table 03</button>
+          <button class="table-select-btn" data-table="T04">Table 04</button>
+          <button class="table-select-btn" data-table="T05">Table 05</button>
+          <button class="table-select-btn" data-table="T06">Table 06</button>
+          <button class="table-select-btn" data-table="T07">Table 07</button>
+          <button class="table-select-btn" data-table="T08">Table 08</button>
+          <button class="table-select-btn" data-table="T09">Table 09</button>
+          <button class="table-select-btn" data-table="T10">Table 10</button>
+          <button class="table-select-btn" data-table="Patio-1">Patio 1</button>
+          <button class="table-select-btn" data-table="Patio-2">Patio 2</button>
+          <button class="table-select-btn" data-table="Bar-1">Bar 1</button>
+          <button class="table-select-btn" data-table="VIP-Vault">VIP Vault</button>
+        </div>
+
+        <label for="qr-custom-table-input" class="form-label">Or Custom Table / Seating Area Name:</label>
+        <input type="text" id="qr-custom-table-input" class="form-input" placeholder="e.g. Balcony-4, Booth-B, Terrace-12">
+      </section>
+
+      <!-- Panel 3: Live Generated Link & Actions -->
+      <section class="qr-panel" aria-labelledby="target-url-heading">
+        <h2 id="target-url-heading" class="qr-panel-title">
+          <span>🔗</span> 3. Encoded QR Target URL
+        </h2>
+        <p class="qr-panel-desc">
+          This exact URL is encoded into the QR code matrix. You can test the link in a new tab or copy it directly.
+        </p>
+
+        <div id="qr-generated-url-display" class="qr-url-display-box">
+          menu.html?table=T01
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 24px;">
+          <button id="qr-copy-url-btn" class="btn-outline-glass" style="font-size: 0.85rem; padding: 10px 18px;">
+            Copy Link 📋
+          </button>
+          <a id="qr-test-link" href="#" target="_blank" class="btn-outline-glass" style="font-size: 0.85rem; padding: 10px 18px;">
+            Test Link in New Tab ↗
+          </a>
+        </div>
+
+        <div class="qr-action-buttons-row">
+          <button id="qr-download-btn" class="qr-action-btn primary">
+            <span>💾</span> Download High-Res PNG
+          </button>
+          <button id="qr-print-btn" class="qr-action-btn secondary">
+            <span>🖨️</span> Print Table Tent Card
+          </button>
+        </div>
+      </section>
+
+      <!-- Hidden Primary QR Code Generation Canvas (Used for High-Res PNG Export) -->
+      <div id="qr-code-canvas-container" style="display: none;"></div>
+
+    </div>
+
+    <!-- Right Column: Live Table Tent Preview -->
+    <div class="qr-preview-col">
+      <div style="text-align: center; margin-bottom: -10px;">
+        <span class="section-kicker">LIVE PRINT PREVIEW</span>
+        <h3 style="font-family: var(--font-serif); font-size: 1.4rem; color: #ffffff;">
+          Table Tent Card Presentation
+        </h3>
+      </div>
+
+      <!-- Printable Table Tent Card -->
+      <div class="table-tent-printable-card">
+        <div class="tent-header-brand">EMBER &amp; OAK</div>
+        <div class="tent-header-sub">Modern Dining • Wood-Fired Craft</div>
+
+        <div id="tent-table-number-display" class="tent-table-badge">TABLE T01</div>
+
+        <div id="tent-qr-canvas-container" class="tent-qr-box">
+          <!-- Dynamically populated by qrcode.min.js -->
+        </div>
+
+        <p class="tent-scan-instruction">
+          Open your smartphone camera and point it at the code to browse our menu, dietary notes, and order contact-free.
+        </p>
+
+        <div class="tent-wifi-box">
+          Complimentary Guest Wi-Fi: <strong>EmberOak-Guest</strong> &bull; Password: <strong>woodfired2026</strong>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- JavaScript Libraries & Modules -->
+  <script src="js/menu-data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/qrcode.min.js"></script>
+  <script src="js/qr-menu.js"></script>
+</body>
+</html>
+

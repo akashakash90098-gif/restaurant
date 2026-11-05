@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EMBER &amp; OAK — Modern Dining | Wood-Fired Craft &amp; Digital Experience</title>
+  <meta name="description" content="Ember &amp; Oak — Modern Dining. An immersive culinary sanctuary combining primordial white oak woodfire, A5 Wagyu, artisanal pasta, and tableside digital QR ordering.">
+  <!-- Google Fonts Preconnect & Refined Editorial Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Top Scroll Progress Indicator -->
+  <div id="scroll-progress-indicator" aria-hidden="true"></div>
+
+  <!-- ==================== CINEMATIC INTRO (SECTION A) ==================== -->
+  <div id="cinematic-intro-overlay" role="dialog" aria-modal="true" aria-label="Cinematic Restaurant Intro">
+    <!-- Top HUD Bar -->
+    <div class="cinematic-hud-top">
+      <div class="intro-brand-pill">
+        <span class="hud-gold-dot"></span>
+        <span id="intro-hud-section" class="hud-section-name">Architectural Foyer</span>
+      </div>
+
+      <div class="cinematic-hud-controls">
+        <button id="intro-sound-toggle" class="intro-ctrl-btn" title="Toggle hearth sound">
+          <span>Sound ♫ On</span>
+        </button>
+        <button id="reduced-motion-toggle" class="intro-ctrl-btn" title="Toggle reduced motion accessibility">
+          <span>Reduced Motion</span>
+        </button>
+        <button id="skip-intro-btn" class="intro-ctrl-btn skip-btn">
+          <span>Skip to Dining ⏭</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Scene 1: Exterior Arrival -->
+    <div class="cinematic-scene scene-exterior active" data-scene="0">
+      <img class="cinematic-scene-bg" src="assets/images/hero-exterior.jpg" alt="Ember &amp; Oak Exterior at Twilight" onerror="this.src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600&q=85';">
+      <div class="cinematic-scene-vignette"></div>
+      <div class="cinematic-content">
+        <span class="cinematic-kicker">PROLOGUE — EST. 2018</span>
+        <h1 class="cinematic-title">EMBER &amp; OAK</h1>
+        <p class="cinematic-subtitle">Modern Dining • Wood-Fired Craft</p>
+      </div>
+    </div>
+
+    <!-- Scene 2: Interior Grand Sanctuary -->
+    <div class="cinematic-scene scene-interior" data-scene="1">
+      <img class="cinematic-scene-bg" src="assets/images/hero-interior.jpg" alt="Grand Dining Hall with Chandeliers" onerror="this.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&q=85';">
+      <div class="cinematic-scene-vignette"></div>
+      <div class="cinematic-content">
+        <span class="cinematic-kicker">ATMOSPHERE</span>
+        <h2 class="cinematic-title">The Grand Sanctuary</h2>
+        <p class="cinematic-subtitle">Arched Stone Vaults, Candlelight &amp; Vintage Oak</p>
+      </div>
+    </div>
+
+    <!-- Scene 3: Chef's Hearth & Craft (Video / Image) -->
+    <div class="cinematic-scene scene-kitchen" data-scene="2">
+      <video id="intro-kitchen-video" class="cinematic-scene-bg" muted playsinline loop poster="assets/images/hero-chef.jpg">
+        <source src="assets/videos/chef-craft.mp4" type="video/mp4">
+      </video>
+      <div class="cinematic-scene-vignette"></div>
+      <div class="cinematic-content">
+        <span class="cinematic-kicker">CULINARY CRAFT</span>
+        <h2 class="cinematic-title">The Woodfire Hearth</h2>
+        <p class="cinematic-subtitle">Searing Over Seasoned White Oak at 450°C</p>
+      </div>
+    </div>
+
+    <!-- Scene 4: The Plated Masterpiece (Dual Annotations - Ref Video 2) -->
+    <div class="cinematic-scene scene-dish" data-scene="3">
+      <img class="cinematic-scene-bg" src="assets/images/hero-burger.jpg" alt="The Ember Wagyu Reserve Burger" onerror="this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1400&q=85';">
+      <div class="cinematic-scene-vignette"></div>
+      
+      <!-- Dual Side Annotations -->
+      <div class="scene-annotation-grid">
+        <div class="scene-annotation-box">
+          <span class="annotation-kicker">— CHEF'S SPECIAL —</span>
+          <h3 class="annotation-title">The Ember Wagyu Reserve</h3>
+          <p class="annotation-text">Custom-ground A5 Wagyu and dry-aged brisket flame-seared over white oak coals, finished with smoked marrow emulsion.</p>
+        </div>
+        <div class="scene-annotation-box">
+          <span class="annotation-kicker">— UNMATCHED SAVOR —</span>
+          <h3 class="annotation-title">18-Month Melted Cheddar</h3>
+          <p class="annotation-text">Resting inside toasted brioche with shallot bacon jam, bringing together crunch, richness, and depth in every bite.</p>
+        </div>
+      </div>
+
+      <div class="cinematic-content">
+        <span class="cinematic-kicker">SIGNATURE FLAVOR</span>
+        <h2 class="cinematic-title">Crafted for the Senses</h2>
+      </div>
+    </div>
+
+    <!-- Bottom Progress Fill -->
+    <div class="intro-progress-bar-wrap">
+      <div id="intro-progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- ==================== NAVIGATION (SECTION B) ==================== -->
+  <header id="main-navbar" class="main-navbar">
+    <div class="container nav-container">
+      <a href="#home" class="brand-logo-link" aria-label="Ember &amp; Oak Home">
+        <div class="brand-emblem">&amp;</div>
+        <div class="brand-text-block">
+          <span class="brand-name">EMBER &amp; OAK</span>
+          <span class="brand-tagline-sub">Modern Dining</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links-menu">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#experience" class="nav-link">Philosophy</a></li>
+          <li><a href="#signatures" class="nav-link">Signatures</a></li>
+          <li><a href="#menu" class="nav-link">Menu</a></li>
+          <li><a href="#story" class="nav-link">Our Story</a></li>
+          <li><a href="#gallery" class="nav-link">Gallery</a></li>
+          <li><a href="#reservations" class="nav-link">Reservations</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions-wrap">
+        <!-- Table indicator badge (if opened via QR code) -->
+        <div class="table-indicator-pill" style="display: none;" title="Current Dining Table">
+          <span class="table-dot"></span> Table <strong>T01</strong>
+        </div>
+
+        <!-- Cart Trigger Button -->
+        <button class="cart-toggle-btn" aria-label="Open Order Cart">
+          <svg class="cart-icon-svg" viewBox="0 0 24 24">
+            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+          </svg>
+          <span>Order</span>
+          <span class="cart-count-badge">0</span>
+        </button>
+
+        <!-- Reservation CTA -->
+        <a href="#reservations" class="nav-reserve-cta">Book a Table</a>
+
+        <!-- Mobile Nav Toggle -->
+        <button id="mobile-nav-toggle" class="mobile-nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-nav-drawer" class="mobile-nav-drawer" role="dialog" aria-modal="true">
+    <ul class="mobile-nav-links">
+      <li><a href="#home" class="mobile-nav-link">Home</a></li>
+      <li><a href="#experience" class="mobile-nav-link">Philosophy</a></li>
+      <li><a href="#signatures" class="mobile-nav-link">Signature Dishes</a></li>
+      <li><a href="#menu" class="mobile-nav-link">Menu &amp; Ordering</a></li>
+      <li><a href="#story" class="mobile-nav-link">Our Story</a></li>
+      <li><a href="#gallery" class="mobile-nav-link">Photo Gallery</a></li>
+      <li><a href="#reservations" class="mobile-nav-link">Reservations</a></li>
+      <li><a href="#contact" class="mobile-nav-link">Contact &amp; Location</a></li>
+      <li><a href="menu.html" class="mobile-nav-link" style="color: var(--gold-primary);">📱 Mobile QR Menu</a></li>
+      <li><a href="qr-menu.html" class="mobile-nav-link" style="color: var(--amber-glow);">🖨️ QR Generator Hub</a></li>
+    </ul>
+    <a href="#reservations" class="btn-primary-gold" style="width: 100%; text-align: center;">Reserve a Table</a>
+  </div>
+
+  <!-- ==================== HERO SECTION (SECTION C) ==================== -->
+  <section id="home" class="hero-section">
+    <div class="hero-background-wrap">
+      <img class="hero-bg-media" src="assets/images/hero-interior.jpg" alt="Ember &amp; Oak Dining Hall Ambiance" onerror="this.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&q=85';">
+      <div class="hero-gradient-overlay"></div>
+      <canvas id="hero-ember-canvas" class="hero-ember-canvas"></canvas>
+    </div>
+
+    <div class="container hero-content">
+      <span class="hero-badge-tag hero-stagger-reveal">EST. 2018 • WOOD-FIRED ARTISTRY</span>
+      <h1 class="hero-main-heading hero-stagger-reveal">
+        An Experience <em>Beyond the Ordinary.</em>
+      </h1>
+      <p class="hero-description hero-stagger-reveal">
+        Where primordial white oak embers meet refined contemporary gastronomy. Immerse yourself in an intimate celebration of smoke, marble, and seasonal earth.
+      </p>
+
+      <div class="hero-cta-group hero-stagger-reveal">
+        <a href="#menu" class="btn-primary-gold">
+          <span>Explore Our Menu</span>
+          <span>→</span>
+        </a>
+        <a href="#reservations" class="btn-outline-glass">
+          <span>Reserve a Table</span>
+        </a>
+        <a href="menu.html" class="btn-outline-glass" title="Open smartphone digital menu">
+          <span>📱 Table QR Menu</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-scroll-indicator">
+      <div class="scroll-mouse-icon">
+        <div class="scroll-wheel-dot"></div>
+      </div>
+      <span>Scroll to Explore</span>
+    </div>
+  </section>
+
+  <!-- ==================== SIGNATURE EXPERIENCE (SECTION D) ==================== -->
+  <section id="experience" class="section-padding experience-section">
+    <div class="container">
+      <div class="section-header-centered reveal-on-scroll">
+        <span class="section-kicker">CULINARY PHILOSOPHY</span>
+        <h2 class="section-title">The Art of the Ember</h2>
+        <p class="section-lead">
+          We honor ancestral cooking techniques using seasoned white oak logs, 45-day dry-aged cuts, and wild-harvested botanicals sourced from certified sustainable producers.
+        </p>
+      </div>
+
+      <div class="experience-grid">
+        <div class="experience-card reveal-on-scroll">
+          <div class="exp-card-number">01</div>
+          <h3 class="exp-card-title">Live Woodfire at 450°C</h3>
+          <p class="exp-card-text">
+            Every signature cut and blistered pizza meets live embers of seasoned white oak and hickory, imparting an unmistakable fragrant warmth and caramelization.
+          </p>
+        </div>
+
+        <div class="experience-card reveal-on-scroll" style="transition-delay: 0.15s;">
+          <div class="exp-card-number">02</div>
+          <h3 class="exp-card-title">Farm-to-Hearth Provenance</h3>
+          <p class="exp-card-text">
+            Our heirloom tomatoes, wild winter truffles, and hand-milled flours are sourced within 80 miles of our kitchen or directly imported from Italian artisanal cooperatives.
+          </p>
+        </div>
+
+        <div class="experience-card reveal-on-scroll" style="transition-delay: 0.3s;">
+          <div class="exp-card-number">03</div>
+          <h3 class="exp-card-title">Oak Barrel Wine Vault</h3>
+          <p class="exp-card-text">
+            Over 340 curated Old and New World vintages curated by our Master Sommelier, stored in temperature-controlled stone vaults dating back to 1920.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SEQUENTIAL SIGNATURE SHOWCASE (SECTION E) ==================== -->
+  <!-- Recreated with inspiration from Reference Video 1: sequential reveals, rotating orbit, floating leaves -->
+  <section id="signatures" class="signature-showcase-section">
+    <!-- Floating Botanical Garnish Leaves -->
+    <div class="floating-leaf leaf-1" aria-hidden="true">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="#2ecc71" opacity="0.85">
+        <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+      </svg>
+    </div>
+    <div class="floating-leaf leaf-2" aria-hidden="true">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="#27ae60" opacity="0.75">
+        <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+      </svg>
+    </div>
+    <div class="floating-leaf leaf-3" aria-hidden="true">
+      <svg width="38" height="38" viewBox="0 0 24 24" fill="#55efc4" opacity="0.6">
+        <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+      </svg>
+    </div>
+
+    <div class="container">
+      <div class="showcase-stage-grid">
+        <!-- Left Editorial Details -->
+        <div class="showcase-editorial-col">
+          <span id="showcase-dish-subtitle" class="showcase-tagline">Chef's Hearth Special</span>
+          <h2 id="showcase-dish-title" class="showcase-dish-title">The Ember Wagyu Reserve</h2>
+          <div id="showcase-dish-price" class="showcase-dish-price">$27.00</div>
+          <p id="showcase-dish-desc" class="showcase-dish-desc">
+            Custom ground A5 Wagyu and dry-aged brisket seared over white oak coals, double melted 18-month Vermont cheddar, shallot bacon jam, and truffle marrow aioli on artisan brioche.
+          </p>
+
+          <div id="showcase-dish-tags" class="showcase-tags-wrap">
+            <span class="showcase-tag">A5 Wagyu</span>
+            <span class="showcase-tag">Oak Seared</span>
+            <span class="showcase-tag">Marrow Aioli</span>
+          </div>
+
+          <div class="showcase-actions-row">
+            <div class="showcase-qty-selector">
+              <button id="showcase-qty-minus" class="showcase-qty-btn" aria-label="Decrease quantity">−</button>
+              <span id="showcase-qty-val" class="showcase-qty-value">01</span>
+              <button id="showcase-qty-plus" class="showcase-qty-btn" aria-label="Increase quantity">+</button>
+            </div>
+            <button id="showcase-order-btn" class="showcase-order-btn">Order Now</button>
+          </div>
+
+          <!-- Sequential Nav Controls with Auto-Play Status -->
+          <div class="showcase-nav-row">
+            <button id="showcase-prev-btn" class="showcase-nav-btn" aria-label="Previous dish">
+              <span>←</span> Previous
+            </button>
+            <button id="showcase-autoplay-toggle" class="showcase-autoplay-indicator" title="Click to pause/resume auto rotation" aria-label="Auto-play rotation status">
+              <span class="autoplay-pulse-dot"></span>
+              <span id="showcase-autoplay-text">Auto 4s</span>
+              <span class="autoplay-timer-bar"><span id="showcase-timer-fill"></span></span>
+            </button>
+            <button id="showcase-next-btn" class="showcase-nav-btn" aria-label="Next dish">
+              Next <span>→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Circular Plate Stage & Orbital Dotted Path -->
+        <div class="showcase-visual-col">
+          <div class="showcase-orbit-arc"></div>
+
+          <!-- Central Rotating Dish (Hover to Pause Rotation) -->
+          <div class="showcase-plate-stage" id="showcase-plate-stage" title="Hover to pause rotation • Click to inspect dish details">
+            <div class="showcase-plate-glow"></div>
+            <img id="showcase-plate-img" class="showcase-plate-img" src="assets/images/dish-wagyu-burger.jpg" alt="Featured Signature Dish" onerror="this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&q=80';">
+          </div>
+
+          <!-- Orbit Mini Dish Buttons -->
+          <div id="showcase-orbit-dots" class="showcase-orbit-dots">
+            <!-- Populated dynamically via menu.js -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== INTERACTIVE FOOD MENU (SECTION F) ==================== -->
+  <section id="menu" class="interactive-menu-section">
+    <div class="container">
+      <div class="section-header-centered reveal-on-scroll">
+        <span class="section-kicker">DISCOVER OUR FLAVORS</span>
+        <h2 class="section-title">Our Popular Menu</h2>
+        <p class="section-lead">
+          Crafted with the freshest local harvests, cold-pressed olive oils, and artisanal heritage. Select any dish to inspect dietary profiles and customize your selection.
+        </p>
+      </div>
+
+      <!-- Toolbar: Search & Dietary Filters -->
+      <div class="menu-toolbar-wrap reveal-on-scroll">
+        <div class="menu-search-box">
+          <span class="menu-search-icon">🔍</span>
+          <input type="text" id="menu-search-input" class="menu-search-input" placeholder="Search dishes, ingredients, truffles..." aria-label="Search dishes">
+          <button id="menu-clear-search-btn" class="menu-clear-search-btn" aria-label="Clear search">✕</button>
+        </div>
+
+        <div class="dietary-filters-group">
+          <label class="dietary-toggle-label">
+            <input type="checkbox" id="filter-veg-checkbox">
+            <span>🌱 Vegetarian Only</span>
+          </label>
+          <label class="dietary-toggle-label">
+            <input type="checkbox" id="filter-gf-checkbox">
+            <span>🌾 Gluten-Free</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills Carousel -->
+      <div id="menu-category-pills" class="menu-categories-carousel" role="tablist" aria-label="Menu Categories">
+        <!-- Injected via menu.js -->
+      </div>
+
+      <!-- Dish Cards Grid -->
+      <div id="menu-grid-container" class="menu-grid">
+        <!-- Rendered dynamically by menu.js -->
+      </div>
+
+      <!-- Empty State -->
+      <div id="menu-empty-state" class="menu-empty-state">
+        <div class="empty-state-icon">🍽️</div>
+        <h3 class="empty-state-title">No Culinary Creations Found</h3>
+        <p class="empty-state-text">No dishes currently match your chosen search terms or dietary filters.</p>
+        <button id="menu-reset-filters-btn" class="btn-primary-gold">Reset All Filters</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== OUR STORY (SECTION G) ==================== -->
+  <section id="story" class="section-padding story-section">
+    <div class="container">
+      <div class="story-grid">
+        <div class="story-images-composition reveal-on-scroll">
+          <div class="story-main-img-wrap">
+            <img src="assets/images/story-chef.jpg" alt="Executive Chef Marcus Vance preparing flame-seared dish" onerror="this.src='https://images.unsplash.com/photo-1583394293214-28ded15ee548?w=1000&q=80';">
+          </div>
+          <div class="story-floating-badge">
+            <span class="story-badge-year">SINCE 2018</span>
+            <div class="story-badge-title">Michelin-Trained Woodfire Pedigree</div>
+          </div>
+        </div>
+
+        <div class="story-content-col reveal-on-scroll">
+          <span class="section-kicker">HERITAGE &amp; HEARTH</span>
+          <h2 class="section-title">Rooted in Fire, Elevated by Craft</h2>
+          <p class="section-lead" style="margin-bottom: 20px;">
+            Ember &amp; Oak was born from a singular passion: stripping away culinary pretense to celebrate the transformative magic of raw fire, wild smoke, and pristine earth.
+          </p>
+          <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.7;">
+            Executive Chef Marcus Vance trained across San Sebastián, Lyon, and Tokyo before founding our hearth. In an era of sterile modern kitchens, we built our dining sanctuary around a 2,000-pound custom refractory hearth stoked with white oak and applewood charcoal.
+          </p>
+
+          <div class="story-quote-card">
+            “Smoke is not merely a flavor in our kitchen — it is the fifth element, an olfactory bridge between ancient ritual and modern elegance.”
+          </div>
+
+          <div class="chef-signature-row">
+            <img src="assets/images/story-chef.jpg" alt="Chef Marcus Vance" class="chef-avatar">
+            <div>
+              <div class="chef-name">Marcus Vance</div>
+              <div class="chef-role">Executive Chef &amp; Co-Founder</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PHOTO GALLERY (SECTION H) ==================== -->
+  <section id="gallery" class="section-padding gallery-section">
+    <div class="container">
+      <div class="section-header-centered reveal-on-scroll">
+        <span class="section-kicker">VISUAL CHRONICLE</span>
+        <h2 class="section-title">The Ember &amp; Oak Atmosphere</h2>
+        <p class="section-lead">
+          Moments captured across our dining sanctuary, wine vault, and open hearth kitchen. Click any photograph to explore in high resolution.
+        </p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-grid-item span-2 reveal-on-scroll" data-caption="The Grand Dining Sanctuary — Candlelight &amp; Arched Stone">
+          <img src="assets/images/gallery-1.jpg" alt="Restaurant Interior Candlelight" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80&auto=format&fit=crop';">
+          <div class="gallery-overlay">
+            <span class="gallery-caption">The Grand Dining Sanctuary</span>
+          </div>
+        </div>
+        <div class="gallery-grid-item reveal-on-scroll" data-caption="Executive Chef Searing Prime Cuts Over Oak Embers">
+          <img src="assets/images/gallery-2.jpg" alt="Chef Flame Seared Sizzle" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80&auto=format&fit=crop';">
+          <div class="gallery-overlay">
+            <span class="gallery-caption">Live Hearth Sizzle</span>
+          </div>
+        </div>
+        <div class="gallery-grid-item reveal-on-scroll" data-caption="Handcrafted Pasta Ribbons &amp; 24-Month Parmigiano">
+          <img src="assets/images/gallery-3.jpg" alt="Handcrafted Pasta" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=800&q=80&auto=format&fit=crop';">
+          <div class="gallery-overlay">
+            <span class="gallery-caption">Artisanal Tagliatelle</span>
+          </div>
+        </div>
+        <div class="gallery-grid-item span-2 reveal-on-scroll" data-caption="The Century Oak Wine Cellar — 340+ Vintage Reserves">
+          <img src="assets/images/story-wine.jpg" alt="Oak Wine Cellar" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80&auto=format&fit=crop';">
+          <div class="gallery-overlay">
+            <span class="gallery-caption">The Sommelier Vault</span>
+          </div>
+        </div>
+        <div class="gallery-grid-item reveal-on-scroll" data-caption="Signature Smoked Old Fashioned tableside smoke cloche reveal">
+          <img src="assets/images/gallery-4.jpg" alt="Smoked Old Fashioned Cocktail" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&q=80&auto=format&fit=crop';">
+          <div class="gallery-overlay">
+            <span class="gallery-caption">Tableside Smoke Cloche</span>
+          </div>
+        </div>
+        <div class="gallery-grid-item reveal-on-scroll" data-caption="Evening Service under Hand-Blown Amber Chandeliers">
+          <img src="assets/images/gallery-5.jpg" alt="Evening Service Tables" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=80&auto=format&fit=crop';">
+          <div class="gallery-overlay">
+            <span class="gallery-caption">Evening Dinner Service</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== RESERVATIONS (SECTION I) ==================== -->
+  <section id="reservations" class="section-padding reservations-section">
+    <div class="container">
+      <div class="section-header-centered reveal-on-scroll">
+        <span class="section-kicker">INTIMATE HOSPITALITY</span>
+        <h2 class="section-title">Table Reservations</h2>
+        <p class="section-lead">
+          Join us for an extraordinary evening. We accommodate parties from intimate date tables to private vault gatherings.
+        </p>
+      </div>
+
+      <div class="reservation-card-wrap reveal-on-scroll">
+        <form id="reservation-form" novalidate>
+          <div class="reservation-form-grid">
+            <div class="form-group">
+              <label for="res-name" class="form-label">Full Name *</label>
+              <input type="text" id="res-name" class="form-input" placeholder="Eleanor Vance" required>
+            </div>
+            <div class="form-group">
+              <label for="res-email" class="form-label">Email Address *</label>
+              <input type="email" id="res-email" class="form-input" placeholder="eleanor@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="res-phone" class="form-label">Mobile Phone *</label>
+              <input type="tel" id="res-phone" class="form-input" placeholder="+1 (555) 234-5678" required>
+            </div>
+            <div class="form-group">
+              <label for="res-guests" class="form-label">Party Size *</label>
+              <select id="res-guests" class="form-select" required>
+                <option value="2 Guests">2 Guests (Intimate Table)</option>
+                <option value="1 Guest">1 Guest (Chef's Counter)</option>
+                <option value="3 Guests">3 Guests</option>
+                <option value="4 Guests">4 Guests</option>
+                <option value="5-6 Guests">5–6 Guests</option>
+                <option value="7-8 Guests">7–8 Guests (Large Banquet)</option>
+                <option value="9+ Guests">9+ Guests (Private Vault)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="res-date" class="form-label">Reservation Date *</label>
+              <input type="date" id="res-date" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label for="res-time" class="form-label">Preferred Time *</label>
+              <select id="res-time" class="form-select" required>
+                <option value="5:30 PM">5:30 PM (Early Dinner)</option>
+                <option value="6:00 PM">6:00 PM</option>
+                <option value="6:30 PM">6:30 PM</option>
+                <option value="7:00 PM">7:00 PM (Prime)</option>
+                <option value="7:30 PM">7:30 PM (Prime)</option>
+                <option value="8:00 PM">8:00 PM</option>
+                <option value="8:30 PM">8:30 PM</option>
+                <option value="9:00 PM">9:00 PM (Late Seating)</option>
+              </select>
+            </div>
+            <div class="form-group span-2">
+              <label for="res-seating" class="form-label">Seating Preference</label>
+              <select id="res-seating" class="form-select">
+                <option value="Main Dining Sanctuary">Main Dining Sanctuary (Arched Stone &amp; Chandeliers)</option>
+                <option value="Chef's Hearth Counter">Chef's Hearth Counter (Direct Fire View)</option>
+                <option value="Garden Veranda">Garden Veranda (Heated Covered Patio)</option>
+                <option value="Sommelier's Wine Vault">Sommelier's Wine Vault (Private Dining)</option>
+              </select>
+            </div>
+            <div class="form-group span-2">
+              <label for="res-notes" class="form-label">Special Dietary Notes or Occasion</label>
+              <textarea id="res-notes" class="form-textarea" rows="3" placeholder="Anniversary, birthday, gluten allergy, quiet booth request..."></textarea>
+            </div>
+
+            <div class="form-submit-row">
+              <button type="submit" class="btn-primary-gold res-form-submit-btn">
+                Confirm Priority Reservation Request
+              </button>
+              <p class="form-disclaimer-note">
+                🔒 Frontend demonstration. Validates form data instantly. For live restaurant deployment, connects seamlessly to your OpenTable, SevenRooms, or custom Node/SQL reservation backend.
+              </p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== LOCATION & CONTACT (SECTION J) ==================== -->
+  <section id="contact" class="section-padding contact-section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info-block reveal-on-scroll">
+          <div>
+            <span class="section-kicker">VISIT OUR HEARTH</span>
+            <h2 class="section-title">Location &amp; Hours</h2>
+            <p class="section-lead">
+              Nestled in the historic heritage district. Valet parking provided at our front portico.
+            </p>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <div class="contact-label">Street Address</div>
+              <div class="contact-value">448 Oak &amp; Hearth Boulevard, Suite 100<br>Metropolitan District, NY 10012</div>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              <div class="contact-label">Reservations &amp; Concierge</div>
+              <div class="contact-value">+1 (555) 347-3257 • concierge@emberandoak.restaurant</div>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">🕰️</div>
+            <div style="flex: 1;">
+              <div class="contact-label">Dining Hours</div>
+              <table class="hours-table">
+                <tbody>
+                  <tr><td>Tuesday – Thursday</td><td>5:00 PM – 10:30 PM</td></tr>
+                  <tr><td>Friday – Saturday</td><td>5:00 PM – 11:30 PM</td></tr>
+                  <tr><td>Sunday Supper</td><td>4:30 PM – 9:30 PM</td></tr>
+                  <tr><td>Monday</td><td>Closed for Foraging</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="location-map-wrap reveal-on-scroll">
+          <img src="assets/images/hero-exterior.jpg" alt="Ember &amp; Oak Building Exterior" onerror="this.src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1000';">
+          <div class="location-map-card">
+            <div>
+              <div style="font-family: var(--font-serif); font-size: 1.15rem; color: #ffffff;">Valet Parking Available</div>
+              <div style="font-size: 0.82rem; color: var(--text-secondary);">Complimentary for all dining guests</div>
+            </div>
+            <a href="https://maps.google.com" target="_blank" class="btn-primary-gold" style="padding: 10px 18px; font-size: 0.82rem;">
+              Get Directions ↗
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER (SECTION K) ==================== -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand-col">
+          <div class="brand-logo-link">
+            <div class="brand-emblem">&amp;</div>
+            <div class="brand-text-block">
+              <span class="brand-name">EMBER &amp; OAK</span>
+              <span class="brand-tagline-sub">Modern Dining</span>
+            </div>
+          </div>
+          <p>
+            An intimate culinary destination honoring ancestral woodfire techniques, dry-aged meats, and artisanal pasta.
+          </p>
+          <div style="margin-top: 18px;">
+            <button onclick="window.replayCinematicIntro()" class="btn-outline-glass" style="font-size: 0.8rem; padding: 8px 16px;">
+              🎬 Replay Cinematic Intro
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Dining Sections</h4>
+          <ul class="footer-links-list">
+            <li><a href="#home" class="footer-link">Home</a></li>
+            <li><a href="#experience" class="footer-link">Our Philosophy</a></li>
+            <li><a href="#signatures" class="footer-link">Signature Dishes</a></li>
+            <li><a href="#menu" class="footer-link">Interactive Menu</a></li>
+            <li><a href="#story" class="footer-link">Story &amp; Chef</a></li>
+            <li><a href="#reservations" class="footer-link">Table Bookings</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Digital Menus &amp; Ops</h4>
+          <ul class="footer-links-list">
+            <li><a href="menu.html" class="footer-link">📱 Mobile Digital Menu</a></li>
+            <li><a href="menu.html?table=T04" class="footer-link">📍 Table T04 Order View</a></li>
+            <li><a href="qr-menu.html" class="footer-link">🖨️ QR Generator Hub</a></li>
+            <li><a href="admin/login.html" class="footer-link">🔒 Kitchen &amp; Admin Console</a></li>
+            <li><a href="#gallery" class="footer-link">Atmosphere Gallery</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <!-- QR Digital Menu Link Box -->
+          <div class="footer-qr-promo-card">
+            <div class="footer-qr-icon">📱</div>
+            <div class="footer-qr-text">
+              <h5>Scan at the Table</h5>
+              <p>Explore our contact-free mobile digital menu with instant dietary filtering.</p>
+              <a href="qr-menu.html" class="footer-qr-link">
+                Generate Table QR Codes <span>→</span>
+              </a>
+            </div>
+          </div>
+
+          <form id="newsletter-form" style="margin-top: 20px;">
+            <div style="display: flex; gap: 8px;">
+              <input type="email" placeholder="Your email for private tastings..." class="form-input" style="padding: 10px 14px; font-size: 0.85rem;" required>
+              <button type="submit" class="btn-primary-gold" style="padding: 10px 18px; font-size: 0.85rem;">Join</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div>
+          &copy; 2026 EMBER &amp; OAK — Modern Dining. Built with semantic HTML5, CSS3 &amp; Vanilla JavaScript.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="menu.html" class="footer-link">Mobile Menu</a>
+          <a href="qr-menu.html" class="footer-link">QR Generator</a>
+          <a href="admin/login.html" class="footer-link">Admin Console</a>
+          <a href="#reservations" class="footer-link">Reservations</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== DISH DETAIL MODAL ==================== -->
+  <div id="dish-detail-modal" class="dish-detail-modal" role="dialog" aria-modal="true" aria-labelledby="modal-dish-title">
+    <div id="dish-modal-overlay" class="modal-backdrop"></div>
+    <div class="modal-card">
+      <button id="dish-modal-close" class="modal-close-btn" aria-label="Close dish modal">✕</button>
+
+      <div class="modal-img-col">
+        <img id="modal-dish-img" class="modal-dish-img" src="" alt="Dish Details" loading="lazy">
+      </div>
+
+      <div class="modal-body-col">
+        <div id="modal-dish-badges" class="modal-badges-row"></div>
+        <h3 id="modal-dish-title" class="modal-title">Dish Title</h3>
+        
+        <div class="modal-price-rating-row">
+          <div id="modal-dish-price" class="modal-price">$0.00</div>
+          <div id="modal-dish-rating" class="modal-rating">★ 4.9 (84 reviews)</div>
+        </div>
+
+        <p id="modal-dish-desc" class="modal-desc">Detailed dish preparation and culinary backstory.</p>
+
+        <div class="modal-meta-chips">
+          <div>Calories: <strong id="modal-dish-cals">780 kcal</strong></div>
+          <div>Kitchen Prep: <strong id="modal-dish-prep">15 mins</strong></div>
+        </div>
+
+        <div class="modal-ingredients-wrap">
+          <span class="modal-section-label">Key Ingredients</span>
+          <div id="modal-dish-ingredients" class="modal-ing-tags"></div>
+        </div>
+
+        <!-- Optional Add-ons List -->
+        <div id="modal-dish-addons-wrap" class="modal-addons-wrap">
+          <span class="modal-section-label">Artisanal Add-ons &amp; Pairings</span>
+          <div id="modal-dish-addons-list" class="modal-addons-list"></div>
+        </div>
+
+        <!-- Special Notes Input -->
+        <div class="modal-notes-wrap">
+          <span class="modal-section-label">Special Kitchen Instructions</span>
+          <input type="text" id="modal-special-notes" class="modal-notes-input" placeholder="e.g. Extra dressing on side, gluten allergy...">
+        </div>
+
+        <div class="modal-actions-row">
+          <div class="modal-qty-ctrl">
+            <button id="modal-qty-minus" class="modal-qty-btn" aria-label="Decrease quantity">−</button>
+            <span id="modal-qty-val" class="modal-qty-val">1</span>
+            <button id="modal-qty-plus" class="modal-qty-btn" aria-label="Increase quantity">+</button>
+          </div>
+
+          <button id="modal-add-to-cart-btn" class="modal-add-to-cart-btn">
+            <span>Add to Order</span>
+            <strong>$0.00</strong>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== CART DRAWER ==================== -->
+  <div id="cart-overlay" class="cart-drawer-overlay"></div>
+  <aside id="cart-drawer" class="cart-drawer" role="dialog" aria-modal="true" aria-label="Order Cart">
+    <div class="cart-drawer-header">
+      <div class="cart-drawer-title-wrap">
+        <h3 class="cart-drawer-title">Your Dining Order</h3>
+        <span class="table-indicator-pill" style="display: none;"></span>
+      </div>
+      <button id="cart-drawer-close" class="cart-drawer-close-btn" aria-label="Close cart">✕</button>
+    </div>
+
+    <!-- Items List Container -->
+    <div id="cart-items-container" class="cart-drawer-items-list"></div>
+
+    <!-- Empty State -->
+    <div id="cart-empty-state" class="cart-empty-state">
+      <div class="cart-empty-icon">🍽️</div>
+      <h4>Your Order Is Empty</h4>
+      <p>Browse our menu and select signature dishes to build your table order.</p>
+    </div>
+
+    <!-- Cart Footer Summary -->
+    <div id="cart-drawer-footer" class="cart-drawer-footer" style="display: none;">
+      <div class="cart-summary-row">
+        <span>Subtotal</span>
+        <span id="cart-subtotal">$0.00</span>
+      </div>
+      <div class="cart-summary-row">
+        <span>Sales Tax (8.25%)</span>
+        <span id="cart-tax">$0.00</span>
+      </div>
+      <div class="cart-summary-row">
+        <span>Kitchen Craft (5%)</span>
+        <span id="cart-service">$0.00</span>
+      </div>
+      <div class="cart-summary-row total-row">
+        <span>Grand Total</span>
+        <span id="cart-total">$0.00</span>
+      </div>
+
+      <button id="cart-checkout-btn" class="cart-checkout-btn">
+        Review &amp; Transmit Order ↗
+      </button>
+    </div>
+  </aside>
+
+  <!-- ==================== DEMO CHECKOUT MODAL ==================== -->
+  <div id="checkout-demo-modal" class="checkout-demo-modal" role="dialog" aria-modal="true">
+    <div class="demo-modal-card">
+      <div class="demo-modal-header">
+        <div class="demo-modal-icon">🧾</div>
+        <h3>Review Table Order</h3>
+      </div>
+
+      <div id="demo-order-summary"></div>
+
+      <div class="demo-modal-disclaimer">
+        <strong>⚡ Frontend Architecture Notice:</strong>
+        This is a complete static frontend demonstration. In production, this order payload transmits via WebSocket or REST API directly to the restaurant's Kitchen Display System (KDS) or POS printer.
+      </div>
+
+      <div class="demo-modal-actions">
+        <button id="checkout-modal-close" class="demo-btn-secondary">Back to Order</button>
+        <button id="checkout-modal-done-btn" class="demo-btn-primary">Confirm Review</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== RESERVATION CONFIRMATION MODAL ==================== -->
+  <div id="reservation-demo-modal" class="checkout-demo-modal" role="dialog" aria-modal="true">
+    <div class="demo-modal-card">
+      <div id="res-confirmation-details"></div>
+      <div style="margin-top: 24px; text-align: center;">
+        <button id="res-modal-close-btn" class="btn-primary-gold" style="width: 100%;">Close Confirmation</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== GALLERY LIGHTBOX MODAL ==================== -->
+  <div id="gallery-lightbox-modal" class="gallery-lightbox-modal" role="dialog" aria-modal="true">
+    <button id="lightbox-close-btn" class="lightbox-close-btn" aria-label="Close photo lightbox">✕</button>
+    <button id="lightbox-prev-btn" class="lightbox-nav-btn prev" aria-label="Previous photo">‹</button>
+    <button id="lightbox-next-btn" class="lightbox-nav-btn next" aria-label="Next photo">›</button>
+
+    <div class="lightbox-content-wrap">
+      <img id="lightbox-img" class="lightbox-img" src="" alt="High resolution gallery photo">
+      <div id="lightbox-caption" class="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top-btn" class="back-to-top-btn" aria-label="Back to top" title="Back to top">↑</button>
+
+  <!-- JavaScript Modules -->
+  <script src="js/menu-data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
